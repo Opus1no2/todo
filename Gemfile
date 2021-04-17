@@ -10,12 +10,14 @@ gem 'puma', '~> 5.0'
 gem 'bcrypt', '~> 3.1.7'
 gem 'bootsnap', '>= 1.4.4', require: false
 gem 'webpacker'
+gem 'devise-jwt'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
 end
 
 group :development do
+  gem 'rubocop', '~> 1.12', require: false
   gem 'listen', '~> 3.3'
   gem 'spring'
   gem 'pry'
