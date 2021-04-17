@@ -12,9 +12,11 @@ gem 'puma', '~> 5.0'
 gem 'rack-cors'
 gem 'rails', '~> 6.1.3', '>= 6.1.3.1'
 gem 'webpacker'
+gem 'factory_bot_rails'
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
+  gem 'rspec-rails', '~> 5.0.0'
 end
 
 group :development do

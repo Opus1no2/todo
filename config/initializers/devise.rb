@@ -311,5 +311,11 @@ Devise.setup do |config|
 
   config.jwt do |jwt|
     jwt.secret = ENV['DEVISE_JWT_SECRET_KEY']
+    jwt.dispatch_requests = [
+      ['POST', %r{^/api/login$}]
+    ]
+    jwt.expiration_time = 1.day.to_i
   end
+
+  config.skip_session_storage = [:params_auth]
 end
