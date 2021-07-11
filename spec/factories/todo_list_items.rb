@@ -3,5 +3,6 @@ FactoryBot.define do
     todo_list
     description { "list item description" }
     due_date { Time.now + 1.day }
+    completed_at { nil }
   end
 end
