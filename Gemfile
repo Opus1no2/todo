@@ -16,12 +16,12 @@ gem 'factory_bot_rails'
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
+  gem 'pry'
   gem 'rspec-rails', '~> 5.0.0'
 end
 
 group :development do
   gem 'listen', '~> 3.3'
-  gem 'pry'
   gem 'rubocop', '~> 1.12', require: false
   gem 'spring'
 end

@@ -9,4 +9,10 @@ Rails.application.routes.draw do
     }
 
   get '/status', to: 'status#index'
+
+  namespace :api do
+    namespace :v1 do
+      resources :todo_lists, only: :index
+    end
+  end
 end
