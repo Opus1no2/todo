@@ -3,6 +3,7 @@ import Login from './Login';
 import Dashboard from './Dashboard';
 import PrivateRoute from './PrivateRoute';
 import ProvideAuth from './ProvideAuth';
+import Nav from './Nav';
 
 import {
   BrowserRouter as Router,
@@ -19,6 +20,7 @@ function App() {
             <Login />
           </Route>
           <PrivateRoute>
+            <Nav />
             <Dashboard />
           </PrivateRoute>
         </Switch>

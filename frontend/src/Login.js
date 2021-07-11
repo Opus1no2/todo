@@ -1,6 +1,15 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import useAuth from './useAuth';
+import useAuth from './hooks/useAuth';
+import styled from 'styled-components';
+
+const Container = styled.div`
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -14,17 +23,17 @@ const Login = () => {
   };
 
   return (
-    <form onSubmit={authenticate}>
-      <div>
-        <label htmlFor="email">Email</label>
-        <input type="email" id="email" onChange={(e) => setEmail(e.target.value)}></input>
-      </div>
-      <div>
-        <label htmlFor="password">Password</label>
-        <input type="password" id="password" onChange={(e) => setPassword(e.target.value)}></input>
-      </div>
-      <button type="submit">Login</button>
-    </form>
+    <Container>
+      <form onSubmit={authenticate}>
+        <div>
+          <input type="email" placeholder="your@email.com" onChange={(e) => setEmail(e.target.value)}></input>
+        </div>
+        <div>
+          <input type="password" placeholder="password" onChange={(e) => setPassword(e.target.value)}></input>
+        </div>
+        <button type="submit">Login</button>
+      </form>
+    </Container>
   );
 };
 
