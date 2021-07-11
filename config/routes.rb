@@ -2,6 +2,9 @@ Rails.application.routes.draw do
   devise_for :users,
     defaults: { format: :json },
     path: '',
+    controllers: {
+      sessions: 'api/v1/sessions'
+    },
     path_names: {
       sign_in: 'api/login',
       sign_out: 'api/logout',

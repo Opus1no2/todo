@@ -316,6 +316,4 @@ Devise.setup do |config|
     ]
     jwt.expiration_time = 1.day.to_i
   end
-
-  config.skip_session_storage = [:params_auth]
 end
