@@ -8,7 +8,8 @@ const NavBar = styled.nav`
   justify-content: flex-end;
   align-items: center;
   background: #448fff;
-  padding: 2rem;
+  padding: 1.5rem;
+  flex: 1;
 `;
 
 const Ul = styled.ul`
@@ -17,6 +18,18 @@ const Ul = styled.ul`
   margin: 0;
 `;
 
+const LogoutBtn = styled.button`
+  appearnce: none;
+  border: none;
+  background-color: transparent;
+  color: white;
+
+  text-transform: uppercase;
+
+  &:hover {
+    cursor: pointer;
+  }
+`;
 
 const Nav = () => {
   const history = useHistory();
@@ -30,7 +43,7 @@ const Nav = () => {
   return (
     <NavBar>
       <Ul>
-        <li><button onClick={logout}>Log out</button></li>
+        <li><LogoutBtn onClick={logout}>Log out</LogoutBtn></li>
       </Ul>
     </NavBar>
   );

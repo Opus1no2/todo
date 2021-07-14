@@ -1,8 +1,39 @@
 import React, { useEffect, useState } from 'react';
-import * as fromApi from './api/todo_lists';
+import * as fromApi from './api/todoLists';
+import * as fromTodoList from './api/todoList';
+
+import TodoLists from './TodoLists';
+import styled from 'styled-components';
+import Nav from './Nav';
+import TodoList from './TodoList';
+
+const DashboardCont = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  height: 100vh;
+`;
+
+const Cont = styled.div`
+  display: flex;
+  flex: 1;
+`;
+
+const Row = styled.div`
+  display: flex;
+`;
+
+const ListCont = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 1rem;
+`;
 
 const Dashboard = () => {
   const [todoLists, setTodoLists] = useState();
+  const [listId, setListId] = useState();
+  const [listItems, setListItems] =  useState();
 
   useEffect(() => {
     fromApi.todoLists().then((resp) => {
@@ -10,13 +41,24 @@ const Dashboard = () => {
     });
   }, []);
 
+  useEffect(() => {
+    fromTodoList.todoList(listId).then((resp) => {
+      setListItems(resp.data);
+    });
+  }, [listId]);
+
   return (
-    <>
-      <div>Dashboard</div>
-      {todoLists ? (todoLists.map((list, i) => {
-        return <div key={i}>{list.description}</div>
-      })) : <div>No lists created</div>}
-    </>
+    <DashboardCont>
+      <Row>
+        <Nav />
+      </Row>
+      <Cont>
+        {todoLists ? <TodoLists todoLists={todoLists} setListId={setListId} /> : null}
+        <ListCont>
+         {listItems ? <TodoList listItems={listItems} /> : null}
+        </ListCont>
+      </Cont>
+    </DashboardCont>
   );
 };
 
