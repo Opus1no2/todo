@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 const ListNav = styled.nav`
   width: 250px;
-  background: #333333;
+  background: #f0f6ff;
 `;
 
 const NavList = styled.ul`
@@ -20,15 +20,13 @@ const ListBtn = styled.button`
   display: flex;
   flex: 1;
 
-  appearence: none;
   border: none;
-  background-color: transparent;
-  border-bottom: solid 1px #333333;
+  background: ${props => props.selected ? '#d4edff' : 'white'};
+  border-bottom: solid 1px #b9dfff;
+  border-right: solid 1px #b9dfff;
+  color: #101010;
   padding: 1rem;
   text-transform: uppercase;
-  color: #101010;
-  background: white;
-  border-right: solid 1px #333333;
 
   &:hover {
     cursor: pointer;
@@ -37,13 +35,25 @@ const ListBtn = styled.button`
 `;
 
 const ListButton = (props) => {
-  const { setListId, list } = props;
+  const {
+    setListId,
+    list,
+    dataId,
+    selected,
+    setSelected
+  } = props;
 
-  return <ListBtn onClick={() => setListId(list.id) }>{list.description}</ListBtn>
+  const handleClick = (listId) => {
+    setSelected(dataId);
+    setListId(listId);
+  };
+
+  return <ListBtn selected={selected} onClick={() => handleClick(list.id) }>{list.description}</ListBtn>
 };
 
 const TodoLists = (props) => {
   const { setListId, todoLists } = props;
+  const [selected, setSelected] = useState(false);
 
   useEffect(() => {
     setListId(todoLists[0].id);
@@ -53,7 +63,11 @@ const TodoLists = (props) => {
     <ListNav>
       <NavList>
         {todoLists.map((list, i) => {
-          return <ListItem key={i}><ListButton setListId={setListId} list={list} /></ListItem>
+          return (
+            <ListItem key={i}>
+              <ListButton dataId={i} selected={selected === i} setSelected={setSelected} setListId={setListId} list={list} />
+            </ListItem>
+          );
         })}
       </NavList>
     </ListNav>
