@@ -36,7 +36,6 @@ const Dashboard = () => {
   const [listItems, setListItems] =  useState([]);
 
   useEffect(() => {
-    console.log('get lists')
     fromApi.todoLists().then((resp) => {
       setTodoLists(resp.data);
     });

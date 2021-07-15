@@ -9,8 +9,6 @@ RSpec.describe "Api::V1::TodoLists", type: :request do
 
   describe "GET /index" do
     context "authenticated user" do
-      before { sign_in(user) }
-
       it "returns a 200" do
         get "/api/v1/todo_lists/#{todo_list.id}/items", headers: auth_headers
 
@@ -19,10 +17,8 @@ RSpec.describe "Api::V1::TodoLists", type: :request do
     end
 
     context "unauthenticated user" do
-      before { sign_out(user) }
-
       it "throws a 401" do
-        get "/api/v1/todo_lists/#{todo_list.id}/items", headers: auth_headers
+        get "/api/v1/todo_lists/#{todo_list.id}/items", headers: headers
 
         expect(response).to have_http_status(:unauthorized)
       end

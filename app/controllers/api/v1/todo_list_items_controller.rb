@@ -1,14 +1,27 @@
 class Api::V1::TodoListItemsController < Api::V1::BaseController
   def index
-    render json: TodoListItem.where(todo_list_id: params[:todo_list_id])
+    render json: todo_list.todo_list_items, status: :ok
   end
 
   def update
-    list_item = TodoListItem.find_by!(id: params[:id])
-    if list_item.update(description: params[:description])
-      render json: list_item, status: :ok
+    if todo_list_item.update(description: permitted[:description])
+      render json: todo_list_item, status: :ok
     else
-      render json: list_item.errors.messages, status: :unprocessable_entity
+      render json: todo_list_item.errors.messages, status: :unprocessable_entity
     end
+  end
+
+  private
+
+  def todo_list
+    @todo_list ||= TodoList.find_by!(id: permitted[:todo_list_id], user: current_user)
+  end
+
+  def todo_list_item
+    @todo_list_item ||= todo_list.todo_list_items.find_by!(id: permitted[:id])
+  end
+
+  def permitted
+    params.permit(:id, :todo_list_id, :description)
   end
 end
