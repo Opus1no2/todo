@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import * as fromApi from './api/todoList';
 
 const ItemInput = styled.input`
   border:none;
@@ -26,31 +27,67 @@ const ItemDisplay = styled.div`
 `;
 
 const TodoListItem = (props) => {
-  const { dataId, selected, setSelected, children } = props;
+  const { item, listId, selected, setSelected } = props;
+  const [description, setDescription] = useState(item.description);
+
+  useEffect(() => {
+    setDescription(item.description);
+  }, [item.description, setDescription]);
+
+  const handleKeyPress = (e) => {
+    const newDescription = e.target.value;
+
+    if (e.key === "Enter" && newDescription !== description) {
+      setSelected(null);
+
+      fromApi.updateListItem(item.id, listId, newDescription).then((resp) => {
+        setDescription(resp.data.description);
+      });
+    }
+  };
+
+  const handleBlur = (e) => {
+    setSelected(null);
+
+    const newDescription = e.target.value;
+
+    if (newDescription !== description) {
+      fromApi.updateListItem(item.id, listId, newDescription).then((resp) => {
+        setDescription(resp.data.description);
+      });
+    }
+  };
 
   return (
     <>
       {selected ?
-        <ItemInput autoFocus onBlur={() => setSelected(null)} placeholder={children} /> :
-        <ItemDisplay onClick={() => setSelected(dataId)}>{children}</ItemDisplay>}
+        <ItemInput
+          type="text"
+          autoFocus
+          onKeyPress={handleKeyPress}
+          onBlur={handleBlur}
+          placeholder={description}
+        /> :
+        <ItemDisplay onClick={() => setSelected(item.id)}>{description}</ItemDisplay>}
     </>
   );
 };
 
 const TodoList = (props) => {
-  const { listItems } = props;
+  const { listItems, listId } = props;
   const [selected, setSelected] = useState(false);
 
   return (
     <>
       {listItems.map((item, i) => {
-        return <TodoListItem
+        return (<TodoListItem
                   key={i}
-                  dataId={i}
-                  selected={selected === i}
+                  item={item}
+                  foo={item.description}
+                  listId={listId}
+                  selected={selected === item.id}
                   setSelected={setSelected}
-                >{item.description}
-                </TodoListItem>
+                />);
       })}
     </>
   );

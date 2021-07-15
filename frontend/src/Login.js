@@ -11,6 +11,38 @@ const Container = styled.div`
   align-items: center;
 `;
 
+const Input = styled.input`
+  border:none;
+  border-bottom: solid 1px #96c2f9;
+  background-image:none;
+  background-color:transparent;
+  -webkit-appearance: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  outline: none;
+
+  padding: .5rem;
+`;
+
+const Btn = styled.button`
+  background: white;
+  border-radius: 0;
+  border: solid 1px grey;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: .5rem;
+  padding: .5rem;
+
+  &:hover {
+    cursor: pointer;
+    background: #4aabff;
+    color: white;
+  }
+`;
+
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -26,12 +58,12 @@ const Login = () => {
     <Container>
       <form onSubmit={authenticate}>
         <div>
-          <input type="email" placeholder="your@email.com" onChange={(e) => setEmail(e.target.value)}></input>
+          <Input type="email" placeholder="your@email.com" onChange={(e) => setEmail(e.target.value)} />
         </div>
         <div>
-          <input type="password" placeholder="password" onChange={(e) => setPassword(e.target.value)}></input>
+          <Input type="password" placeholder="password" onChange={(e) => setPassword(e.target.value)} />
         </div>
-        <button type="submit">Login</button>
+        <Btn type="submit">Login</Btn>
       </form>
     </Container>
   );

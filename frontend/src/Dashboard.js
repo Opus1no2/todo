@@ -31,11 +31,12 @@ const ListCont = styled.div`
 `;
 
 const Dashboard = () => {
-  const [todoLists, setTodoLists] = useState();
   const [listId, setListId] = useState();
-  const [listItems, setListItems] =  useState();
+  const [todoLists, setTodoLists] = useState([]);
+  const [listItems, setListItems] =  useState([]);
 
   useEffect(() => {
+    console.log('get lists')
     fromApi.todoLists().then((resp) => {
       setTodoLists(resp.data);
     });
@@ -53,9 +54,9 @@ const Dashboard = () => {
         <Nav />
       </Row>
       <Cont>
-        {todoLists ? <TodoLists todoLists={todoLists} setListId={setListId} /> : null}
+        {todoLists.length ? <TodoLists todoLists={todoLists} setListId={setListId} /> : null}
         <ListCont>
-         {listItems ? <TodoList listItems={listItems} /> : null}
+         {listItems.length ? <TodoList listId={listId} listItems={listItems} /> : null}
         </ListCont>
       </Cont>
     </DashboardCont>

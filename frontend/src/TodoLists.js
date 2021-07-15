@@ -36,28 +36,34 @@ const ListBtn = styled.button`
 
 const ListButton = (props) => {
   const {
-    setListId,
     list,
-    dataId,
-    selected,
-    setSelected
+    selectedList,
+    setSelectedList,
+    setListId,
   } = props;
 
-  const handleClick = (listId) => {
-    setSelected(dataId);
-    setListId(listId);
+  const handleClick = () => {
+    setSelectedList(list.id);
+    setListId(list.id);
   };
 
-  return <ListBtn selected={selected} onClick={() => handleClick(list.id) }>{list.description}</ListBtn>
+  return (
+    <ListBtn
+      selected={selectedList}
+      onClick={handleClick}
+    >
+      {list.description}
+    </ListBtn>
+  );
 };
 
 const TodoLists = (props) => {
   const { setListId, todoLists } = props;
-  const [selected, setSelected] = useState(false);
+  const [selectedList, setSelectedList] = useState(todoLists[0].id);
 
   useEffect(() => {
-    setListId(todoLists[0].id);
-  }, [todoLists, setListId]);
+    setListId(selectedList);
+  }, [setListId, selectedList]);
 
   return (
     <ListNav>
@@ -65,7 +71,12 @@ const TodoLists = (props) => {
         {todoLists.map((list, i) => {
           return (
             <ListItem key={i}>
-              <ListButton dataId={i} selected={selected === i} setSelected={setSelected} setListId={setListId} list={list} />
+              <ListButton
+                selectedList={selectedList === list.id}
+                setSelectedList={setSelectedList}
+                setListId={setListId}
+                list={list}
+              />
             </ListItem>
           );
         })}
