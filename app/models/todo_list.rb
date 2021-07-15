@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TodoList < ApplicationRecord
   validates :user, presence: true
 
