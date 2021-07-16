@@ -8,11 +8,11 @@ RSpec.describe TodoListItem, type: :model do
 
   describe 'validations' do
     it 'must have a description' do
-      expect(todo_list_item).to_not be_valid
+      expect(todo_list_item).not_to be_valid
     end
 
     it 'must belong to a todo list' do
-      expect(without_list).to_not be_valid
+      expect(without_list).not_to be_valid
     end
   end
 end

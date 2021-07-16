@@ -10,7 +10,7 @@ RSpec.describe 'Api::V1::TodoLists', type: :request do
   let(:create_params) { { todo_list: { description: 'test' } }.to_json }
 
   describe 'GET /index' do
-    context 'authenticated user' do
+    context 'with auth token given' do
       it 'returns a 200' do
         get '/api/v1/todo_lists', headers: auth_headers
 
@@ -18,7 +18,7 @@ RSpec.describe 'Api::V1::TodoLists', type: :request do
       end
     end
 
-    context 'unauthenticated user' do
+    context 'without auth token given' do
       it 'throws a 401' do
         get '/api/v1/todo_lists', headers: headers
 
@@ -28,7 +28,7 @@ RSpec.describe 'Api::V1::TodoLists', type: :request do
   end
 
   describe 'POST /create' do
-    context 'given a description' do
+    context 'with a description' do
       before do
         post '/api/v1/todo_lists', params: create_params, headers: auth_headers
       end

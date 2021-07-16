@@ -7,7 +7,7 @@ RSpec.describe TodoList, type: :model do
 
   describe 'validations' do
     it 'validates user' do
-      expect(todo_list).to_not be_valid
+      expect(todo_list).not_to be_valid
     end
   end
 end

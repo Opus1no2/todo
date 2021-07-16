@@ -10,7 +10,7 @@ RSpec.describe 'Api::V1::TodoLists', type: :request do
   let(:auth_headers) { Devise::JWT::TestHelpers.auth_headers(headers, user) }
 
   describe 'GET /index' do
-    context 'authenticated user' do
+    context 'when valid token given' do
       it 'returns a 200' do
         get "/api/v1/todo_lists/#{todo_list.id}/items", headers: auth_headers
 
@@ -18,7 +18,7 @@ RSpec.describe 'Api::V1::TodoLists', type: :request do
       end
     end
 
-    context 'unauthenticated user' do
+    context 'when token not given' do
       it 'throws a 401' do
         get "/api/v1/todo_lists/#{todo_list.id}/items", headers: headers
 
