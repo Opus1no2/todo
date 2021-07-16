@@ -1,19 +1,25 @@
-class Api::V1::TodoListsController < Api::V1::BaseController
-  def index
-    render json: TodoList.where(user: current_user).to_json(index_options)
-  end
+# frozen_string_literal: true
 
-  def create
-    render json: TodoList.create!(create_params.merge(user: current_user))
-  end
+module Api
+  module V1
+    class TodoListsController < Api::V1::BaseController
+      def index
+        render json: TodoList.where(user: current_user).to_json(index_options)
+      end
 
-  def index_options
-    {
-      only: [:id, :description, :created_at]
-    }
-  end
+      def create
+        render json: TodoList.create!(create_params.merge(user: current_user))
+      end
 
-  def create_params
-    params.require(:todo_list).permit(:description)
+      def index_options
+        {
+          only: %i[id description created_at]
+        }
+      end
+
+      def create_params
+        params.require(:todo_list).permit(:description)
+      end
+    end
   end
 end

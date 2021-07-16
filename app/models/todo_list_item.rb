@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TodoListItem < ApplicationRecord
   validates :todo_list, presence: true
   validates :description, presence: true
