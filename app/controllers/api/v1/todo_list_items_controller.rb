@@ -22,7 +22,7 @@ module Api
       end
 
       def todo_list_item
-        @todo_list_item ||= todo_list.todo_list_items.find_by!(id: permitted[:id])
+        @todo_list_item ||= todo_list.todo_list_items.find(permitted[:id])
       end
 
       def permitted
