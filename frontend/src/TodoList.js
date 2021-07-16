@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import * as fromApi from './api/todoList';
+import TextInput from './TextInput';
 
 const ItemInput = styled.input`
   border:none;
@@ -61,7 +62,7 @@ const TodoListItem = (props) => {
   return (
     <>
       {selected ?
-        <ItemInput
+        <TextInput
           type="text"
           autoFocus
           onKeyPress={handleKeyPress}
