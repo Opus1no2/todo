@@ -15,6 +15,10 @@ module Api
         end
       end
 
+      def create
+        render json: todo_list.todo_list_items.create!(description: create_params)
+      end
+
       private
 
       def todo_list
@@ -27,6 +31,10 @@ module Api
 
       def permitted
         params.permit(:id, :todo_list_id, :description)
+      end
+
+      def create_params
+        params.require(:todo_list_item).require(:description)
       end
     end
   end

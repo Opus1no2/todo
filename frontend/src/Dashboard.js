@@ -26,8 +26,8 @@ const Row = styled.div`
 const ListCont = styled.div`
   display: flex;
   flex-direction: column;
-  flex: 1;
   padding: 1rem;
+  flex: 1;
 `;
 
 const Dashboard = () => {
@@ -55,7 +55,7 @@ const Dashboard = () => {
       <Cont>
         {todoLists.length ? <TodoLists todoLists={todoLists} setListId={setListId} /> : null}
         <ListCont>
-         {listItems.length ? <TodoList listId={listId} listItems={listItems} /> : null}
+          {listItems.length ? <TodoList listId={listId} listItems={listItems} setListItems={setListItems} /> : null}
         </ListCont>
       </Cont>
     </DashboardCont>

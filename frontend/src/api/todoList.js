@@ -10,3 +10,11 @@ export function updateListItem(itemId, listId, description) {
     description: description,
   })
 }
+
+export function createListItem(listId, description) {
+  return axios.post(`/v1/todo_lists/${listId}/items`, {
+    todo_list_item: {
+      description: description,
+    }
+  })
+}

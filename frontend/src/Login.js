@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import useAuth from './hooks/useAuth';
 import styled from 'styled-components';
+import TextInput from './TextInput';
 
 const Container = styled.div`
   min-height: 100vh;
@@ -9,20 +10,6 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-`;
-
-const Input = styled.input`
-  border:none;
-  border-bottom: solid 1px #96c2f9;
-  background-image:none;
-  background-color:transparent;
-  -webkit-appearance: none;
-  -webkit-box-shadow: none;
-  -moz-box-shadow: none;
-  box-shadow: none;
-  outline: none;
-
-  padding: .5rem;
 `;
 
 const Btn = styled.button`
@@ -58,10 +45,10 @@ const Login = () => {
     <Container>
       <form onSubmit={authenticate}>
         <div>
-          <Input type="email" placeholder="your@email.com" onChange={(e) => setEmail(e.target.value)} />
+          <TextInput type="email" placeholder="your@email.com" onChange={(e) => setEmail(e.target.value)} />
         </div>
         <div>
-          <Input type="password" placeholder="password" onChange={(e) => setPassword(e.target.value)} />
+          <TextInput type="password" placeholder="password" onChange={(e) => setPassword(e.target.value)} />
         </div>
         <Btn type="submit">Login</Btn>
       </form>
