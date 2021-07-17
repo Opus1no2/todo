@@ -35,6 +35,26 @@ const ItemInput = styled(TextInput)`
   margin-bottom: 4rem;
   justify-self: flex-end;
   background: #ececec;
+  width: 100%;
+`;
+
+const ListInput = styled(TextInput)`
+  background: white;
+  width: 100%;
+  padding: 1rem;
+  border-right: solid 1px #b9dfff;
+  border-bottom: solid 1px #b9dfff;
+`;
+
+const ListNav = styled.nav`
+  width: 250px;
+  background: #f0f6ff;
+`;
+
+const NavList = styled.ul`
+  list-style: none;
+  padding: 0;
+  margin: 0;
 `;
 
 const Dashboard = () => {
@@ -76,13 +96,29 @@ const Dashboard = () => {
     });
   };
 
+  const createList = (e) => {
+    if (!e.target.value) return
+
+    if (e.key === "Enter") {
+      fromApi.createList(e.target.value).then((resp) => {
+        setTodoLists(todoLists.concat(resp.data));
+        e.target.value = null;
+      });
+    }
+  };
+
   return (
     <DashboardCont>
       <Row>
         <Nav />
       </Row>
       <Cont>
-        {todoLists.length ? <TodoLists todoLists={todoLists} setListId={setListId} /> : null}
+        <ListNav>
+          <NavList>
+            <TodoLists todoLists={todoLists} setListId={setListId} />
+            <ListInput onKeyPress={createList} placeholder="NEW LIST" />
+          </NavList>
+        </ListNav>
         <ListCont>
           {listItems.length ? <TodoList listId={listId} listItems={listItems} handleComplete={handleComplete} /> : null}
           <ItemInput onKeyPress={handleCreate} placeholder="new item" />

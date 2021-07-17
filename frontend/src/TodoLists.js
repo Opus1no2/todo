@@ -1,17 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
-const ListNav = styled.nav`
-  width: 250px;
-  background: #f0f6ff;
-`;
-
-const NavList = styled.ul`
-  list-style: none;
-  padding: 0;
-  margin: 0;
-`;
-
 const ListItem = styled.li`
   display: flex;
 `;
@@ -59,29 +48,33 @@ const ListButton = (props) => {
 
 const TodoLists = (props) => {
   const { setListId, todoLists } = props;
-  const [selectedList, setSelectedList] = useState(todoLists[0].id);
+  const [selectedList, setSelectedList] = useState(null);
 
   useEffect(() => {
     setListId(selectedList);
   }, [setListId, selectedList]);
 
+  useEffect(() => {
+    if (!todoLists.length) return
+
+    setSelectedList(todoLists[0].id);
+  }, [setSelectedList, todoLists]);
+
   return (
-    <ListNav>
-      <NavList>
-        {todoLists.map((list, i) => {
-          return (
-            <ListItem key={i}>
-              <ListButton
-                selectedList={selectedList === list.id}
-                setSelectedList={setSelectedList}
-                setListId={setListId}
-                list={list}
-              />
-            </ListItem>
-          );
-        })}
-      </NavList>
-    </ListNav>
+    <>
+      {todoLists.map((list, i) => {
+        return (
+          <ListItem key={i}>
+            <ListButton
+              selectedList={selectedList === list.id}
+              setSelectedList={setSelectedList}
+              setListId={setListId}
+              list={list}
+            />
+          </ListItem>
+        );
+      })}
+    </>
   )
 };
 
