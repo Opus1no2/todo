@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import * as fromApi from './api/todoList';
-import TextInput from './TextInput';
+import * as fromApi from '../api/todoList';
+import TextInput from '../ui/TextInput';
 
 const ItemDisplay = styled.div`
   padding: .5rem;

@@ -34,7 +34,7 @@ const LogoutBtn = styled.button`
   }
 `;
 
-const Nav = () => {
+const Header = () => {
   const history = useHistory();
   const token = useToken();
 
@@ -52,4 +52,4 @@ const Nav = () => {
   );
 };
 
-export default Nav;
+export default Header;

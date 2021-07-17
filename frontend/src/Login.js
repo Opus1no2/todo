@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import useAuth from './hooks/useAuth';
 import styled from 'styled-components';
-import TextInput from './TextInput';
+import TextInput from './ui/TextInput';
 
 const Container = styled.div`
   min-height: 100vh;

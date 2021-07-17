@@ -4,9 +4,9 @@ import * as fromTodoList from './api/todoList';
 
 import TodoLists from './TodoLists';
 import styled from 'styled-components';
-import Nav from './Nav';
+import Header from './Header';
 import TodoList from './TodoList';
-import TextInput from './TextInput';
+import TextInput from './ui/TextInput';
 
 const DashboardCont = styled.div`
   display: flex;
@@ -110,7 +110,7 @@ const Dashboard = () => {
   return (
     <DashboardCont>
       <Row>
-        <Nav />
+        <Header />
       </Row>
       <Cont>
         <ListNav>
