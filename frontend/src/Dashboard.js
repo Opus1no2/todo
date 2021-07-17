@@ -6,6 +6,7 @@ import TodoLists from './TodoLists';
 import styled from 'styled-components';
 import Nav from './Nav';
 import TodoList from './TodoList';
+import TextInput from './TextInput';
 
 const DashboardCont = styled.div`
   display: flex;
@@ -30,6 +31,11 @@ const ListCont = styled.div`
   flex: 1;
 `;
 
+const ItemInput = styled(TextInput)`
+  margin-bottom: 4rem;
+  justify-self: flex-end;
+`;
+
 const Dashboard = () => {
   const [listId, setListId] = useState();
   const [todoLists, setTodoLists] = useState([]);
@@ -47,6 +53,17 @@ const Dashboard = () => {
     });
   }, [listId]);
 
+  const handleCreate = (e) => {
+    const description = e.target.value;
+
+    if (e.key === "Enter") {
+      fromTodoList.createListItem(listId, description).then((resp) => {
+        setListItems(listItems.concat(resp.data));
+        e.target.value = null;
+      });
+    }
+  };
+
   return (
     <DashboardCont>
       <Row>
@@ -56,6 +73,7 @@ const Dashboard = () => {
         {todoLists.length ? <TodoLists todoLists={todoLists} setListId={setListId} /> : null}
         <ListCont>
           {listItems.length ? <TodoList listId={listId} listItems={listItems} setListItems={setListItems} /> : null}
+          <ItemInput onKeyPress={handleCreate} placeholder="new item" />
         </ListCont>
       </Cont>
     </DashboardCont>

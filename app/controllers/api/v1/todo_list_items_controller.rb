@@ -3,8 +3,10 @@
 module Api
   module V1
     class TodoListItemsController < Api::V1::BaseController
+      before_action :load_todo_list
+
       def index
-        render json: todo_list.todo_list_items, status: :ok
+        render json: @todo_list.todo_list_items, status: :ok
       end
 
       def update
@@ -16,17 +18,21 @@ module Api
       end
 
       def create
-        render json: todo_list.todo_list_items.create!(description: create_params)
+        render json: @todo_list.todo_list_items.create!(description: create_params)
+      end
+
+      def destroy
+        render json: todo_list_item.destroy
       end
 
       private
 
-      def todo_list
-        @todo_list ||= TodoList.find_by!(id: permitted[:todo_list_id], user: current_user)
+      def load_todo_list
+        @todo_list = TodoList.find_by!(id: permitted[:todo_list_id], user: current_user)
       end
 
       def todo_list_item
-        @todo_list_item ||= todo_list.todo_list_items.find(permitted[:id])
+        @todo_list.todo_list_items.find(permitted[:id])
       end
 
       def permitted

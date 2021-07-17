@@ -3,10 +3,6 @@ import styled from 'styled-components';
 import * as fromApi from './api/todoList';
 import TextInput from './TextInput';
 
-const ItemInput = styled(TextInput)`
-  margin-bottom: 4rem;
-`;
-
 const ItemDisplay = styled.div`
   border-bottom: solid 1px #d0e3ff;
   padding: .5rem;
@@ -60,18 +56,8 @@ const TodoListItem = (props) => {
 };
 
 const TodoList = (props) => {
-  const { listId, listItems, setListItems } = props;
+  const { listId, listItems } = props;
   const [selected, setSelected] = useState(false);
-
-  const handleCreate = (e) => {
-    const description = e.target.value;
-
-    if (e.key === "Enter") {
-      fromApi.createListItem(listId, description).then((resp) => {
-        setListItems(listItems.push(resp.data));
-      });
-    }
-  };
 
   return (
     <>
@@ -86,7 +72,6 @@ const TodoList = (props) => {
                 />);
       })}
 
-      <ItemInput onKeyPress={handleCreate} placeholder="new item" />
     </>
   );
 };
