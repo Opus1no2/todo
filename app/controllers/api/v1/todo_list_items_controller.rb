@@ -10,7 +10,7 @@ module Api
       end
 
       def update
-        if todo_list_item.update(description: permitted[:description])
+        if todo_list_item.update(item_params)
           render json: todo_list_item, status: :ok
         else
           render json: todo_list_item.errors.messages, status: :unprocessable_entity
@@ -18,11 +18,7 @@ module Api
       end
 
       def create
-        render json: @todo_list.todo_list_items.create!(description: create_params)
-      end
-
-      def destroy
-        render json: todo_list_item.destroy
+        render json: @todo_list.todo_list_items.create!(item_params)
       end
 
       private
@@ -39,8 +35,8 @@ module Api
         params.permit(:id, :todo_list_id, :description)
       end
 
-      def create_params
-        params.require(:todo_list_item).require(:description)
+      def item_params
+        params.require(:todo_list_item).permit(:description, :completed_at)
       end
     end
   end

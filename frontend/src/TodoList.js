@@ -4,12 +4,22 @@ import * as fromApi from './api/todoList';
 import TextInput from './TextInput';
 
 const ItemDisplay = styled.div`
-  border-bottom: solid 1px #d0e3ff;
   padding: .5rem;
+  flex: 1;
+`;
+
+const ListItem = styled.div`
+  display: ${props => props.completed ? 'none' : 'flex'};
+  align-items: center;
+  border-bottom: solid 1px #d0e3ff;
+`;
+
+const ListItemInput = styled(TextInput)`
+  border-bottom: none;
 `;
 
 const TodoListItem = (props) => {
-  const { item, listId, selected, setSelected } = props;
+  const { item, listId, selected, setSelected, handleComplete } = props;
   const [description, setDescription] = useState(item.description);
 
   useEffect(() => {
@@ -19,10 +29,10 @@ const TodoListItem = (props) => {
   const handleKeyPress = (e) => {
     const newDescription = e.target.value;
 
-    if (e.key === "Enter" && newDescription !== description) {
+    if (e.key === "Enter" && newDescription.length && newDescription !== description) {
       setSelected(null);
 
-      fromApi.updateListItem(item.id, listId, newDescription).then((resp) => {
+      fromApi.updateListItem(item.id, listId, { description: newDescription }).then((resp) => {
         setDescription(resp.data.description);
       });
     }
@@ -33,17 +43,18 @@ const TodoListItem = (props) => {
 
     const newDescription = e.target.value;
 
-    if (newDescription !== description) {
-      fromApi.updateListItem(item.id, listId, newDescription).then((resp) => {
+    if (newDescription.length && newDescription !== description) {
+      fromApi.updateListItem(item.id, listId, { description: newDescription }).then((resp) => {
         setDescription(resp.data.description);
       });
     }
   };
 
   return (
-    <>
+    <ListItem completed={item.completed_at}>
+      <input type="radio" onChange={handleComplete} value={item.id} />
       {selected ?
-        <TextInput
+        <ListItemInput
           type="text"
           autoFocus
           onKeyPress={handleKeyPress}
@@ -51,12 +62,12 @@ const TodoListItem = (props) => {
           placeholder={description}
         /> :
         <ItemDisplay onClick={() => setSelected(item.id)}>{description}</ItemDisplay>}
-    </>
+    </ListItem>
   );
 };
 
 const TodoList = (props) => {
-  const { listId, listItems } = props;
+  const { listId, listItems, handleComplete } = props;
   const [selected, setSelected] = useState(false);
 
   return (
@@ -65,10 +76,10 @@ const TodoList = (props) => {
         return (<TodoListItem
                   key={i}
                   item={item}
-                  foo={item.description}
                   listId={listId}
                   selected={selected === item.id}
                   setSelected={setSelected}
+                  handleComplete={handleComplete}
                 />);
       })}
 

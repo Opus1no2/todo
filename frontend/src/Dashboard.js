@@ -34,6 +34,7 @@ const ListCont = styled.div`
 const ItemInput = styled(TextInput)`
   margin-bottom: 4rem;
   justify-self: flex-end;
+  background: #ececec;
 `;
 
 const Dashboard = () => {
@@ -48,6 +49,8 @@ const Dashboard = () => {
   }, []);
 
   useEffect(() => {
+    if (!listId) return
+
     fromTodoList.todoList(listId).then((resp) => {
       setListItems(resp.data);
     });
@@ -64,6 +67,15 @@ const Dashboard = () => {
     }
   };
 
+  const handleComplete = (e) => {
+    fromTodoList.updateListItem(e.target.value, listId, { completed_at: Date() }).then((resp) => {
+      const newList = listItems.filter((item) => {
+        return item.id !== resp.data.id;
+      });
+      setListItems(newList.concat(resp.data));
+    });
+  };
+
   return (
     <DashboardCont>
       <Row>
@@ -72,7 +84,7 @@ const Dashboard = () => {
       <Cont>
         {todoLists.length ? <TodoLists todoLists={todoLists} setListId={setListId} /> : null}
         <ListCont>
-          {listItems.length ? <TodoList listId={listId} listItems={listItems} setListItems={setListItems} /> : null}
+          {listItems.length ? <TodoList listId={listId} listItems={listItems} handleComplete={handleComplete} /> : null}
           <ItemInput onKeyPress={handleCreate} placeholder="new item" />
         </ListCont>
       </Cont>
