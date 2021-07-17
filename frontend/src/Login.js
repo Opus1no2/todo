@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import useAuth from './hooks/useAuth';
-import styled from 'styled-components';
-import TextInput from './ui/TextInput';
+import React, { useState } from 'react'
+import { useHistory } from 'react-router-dom'
+import useAuth from './hooks/useAuth'
+import styled from 'styled-components'
+import TextInput from './ui/TextInput'
 
 const Container = styled.div`
   min-height: 100vh;
@@ -10,7 +10,7 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-`;
+`
 
 const Btn = styled.button`
   background: white;
@@ -28,18 +28,18 @@ const Btn = styled.button`
     background: #4aabff;
     color: white;
   }
-`;
+`
 
 const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const history = useHistory();
-  const auth = useAuth();
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const history = useHistory()
+  const auth = useAuth()
 
   const authenticate = (e) => {
-    e.preventDefault();
-    auth.login(email, password).then(() => history.push("/dashboard"));
-  };
+    e.preventDefault()
+    auth.login(email, password).then(() => history.push('/dashboard'))
+  }
 
   return (
     <Container>
@@ -53,7 +53,7 @@ const Login = () => {
         <Btn type="submit">Login</Btn>
       </form>
     </Container>
-  );
-};
+  )
+}
 
-export default Login;
+export default Login

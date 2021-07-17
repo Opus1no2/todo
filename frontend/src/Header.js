@@ -1,7 +1,7 @@
-import React from 'react';
-import { useHistory } from 'react-router';
-import styled from 'styled-components';
-import useToken from './hooks/useToken';
+import React from 'react'
+import { useHistory } from 'react-router'
+import styled from 'styled-components'
+import useToken from './hooks/useToken'
 
 const NavBar = styled.nav`
   display: flex;
@@ -11,13 +11,13 @@ const NavBar = styled.nav`
   align-items: center;
   padding: 1rem;
   flex: 1;
-`;
+`
 
 const Ul = styled.ul`
   list-style: none;
   padding: 0;
   margin: 0;
-`;
+`
 
 const LogoutBtn = styled.button`
   appearnce: none;
@@ -32,16 +32,16 @@ const LogoutBtn = styled.button`
     background: #4aabff;
     color: white;
   }
-`;
+`
 
 const Header = () => {
-  const history = useHistory();
-  const token = useToken();
+  const history = useHistory()
+  const token = useToken()
 
   const logout = () => {
-    token.unset();
-    history.push('/login');
-  };
+    token.unset()
+    history.push('/login')
+  }
 
   return (
     <NavBar>
@@ -49,7 +49,7 @@ const Header = () => {
         <li><LogoutBtn onClick={logout}>Log out</LogoutBtn></li>
       </Ul>
     </NavBar>
-  );
-};
+  )
+}
 
-export default Header;
+export default Header

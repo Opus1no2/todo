@@ -1,22 +1,22 @@
-import { useState } from 'react';
-import * as fromApi from '../api/login';
-import useToken from './useToken';
+import { useState } from 'react'
+import * as fromApi from '../api/login'
+import useToken from './useToken'
 
 const useProvideAuth = () => {
-  const [user, setUser] = useState(null);
-  const token = useToken();
+  const [user, setUser] = useState(null)
+  const token = useToken()
 
   const login = (email, password) => {
     return fromApi.login(email, password).then(response => {
-      setUser(response.data);
-      token.save(response.headers.authorization);
-    });
+      setUser(response.data)
+      token.save(response.headers.authorization)
+    })
   }
 
   return {
     user,
-    login,
+    login
   }
-};
+}
 
-export default useProvideAuth;
+export default useProvideAuth

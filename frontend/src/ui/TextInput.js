@@ -1,5 +1,5 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from 'react'
+import styled from 'styled-components'
 
 const StyledTextInput = styled.input`
   border:none;
@@ -17,10 +17,10 @@ const StyledTextInput = styled.input`
   line-height: inherit;
 
   padding: .5rem;
-`;
+`
 
 const TextInput = (props) => {
   return <StyledTextInput {...props} />
-};
+}
 
-export default TextInput;
+export default TextInput

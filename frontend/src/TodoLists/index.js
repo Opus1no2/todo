@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
+import React, { useEffect, useState } from 'react'
+import styled from 'styled-components'
+import PropTypes from 'prop-types'
 
 const ListItem = styled.li`
   display: flex;
-`;
+`
 
 const ListBtn = styled.button`
   display: flex;
@@ -21,20 +22,20 @@ const ListBtn = styled.button`
     cursor: pointer;
     background: #dff0ff;
   }
-`;
+`
 
 const ListButton = (props) => {
   const {
     list,
     selectedList,
     setSelectedList,
-    setListId,
-  } = props;
+    setListId
+  } = props
 
   const handleClick = () => {
-    setSelectedList(list.id);
-    setListId(list.id);
-  };
+    setSelectedList(list.id)
+    setListId(list.id)
+  }
 
   return (
     <ListBtn
@@ -43,22 +44,29 @@ const ListButton = (props) => {
     >
       {list.description}
     </ListBtn>
-  );
-};
+  )
+}
+
+ListButton.propTypes = {
+  list: PropTypes.array,
+  selectedList: PropTypes.array,
+  setSelectedList: PropTypes.func,
+  setListId: PropTypes.func
+}
 
 const TodoLists = (props) => {
-  const { setListId, todoLists } = props;
-  const [selectedList, setSelectedList] = useState(null);
+  const { setListId, todoLists } = props
+  const [selectedList, setSelectedList] = useState(null)
 
   useEffect(() => {
-    setListId(selectedList);
-  }, [setListId, selectedList]);
+    setListId(selectedList)
+  }, [setListId, selectedList])
 
   useEffect(() => {
     if (!todoLists.length) return
 
-    setSelectedList(todoLists[0].id);
-  }, [setSelectedList, todoLists]);
+    setSelectedList(todoLists[0].id)
+  }, [setSelectedList, todoLists])
 
   return (
     <>
@@ -72,10 +80,15 @@ const TodoLists = (props) => {
               list={list}
             />
           </ListItem>
-        );
+        )
       })}
     </>
   )
-};
+}
 
-export default TodoLists;
+TodoLists.propTypes = {
+  setListId: PropTypes.func,
+  todoLists: PropTypes.array
+}
+
+export default TodoLists
