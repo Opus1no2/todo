@@ -1,8 +1,8 @@
 import React from 'react'
 
 import './App.css'
-import Login from './Login'
-import Dashboard from './Dashboard'
+import Login from './pages/Login'
+import Dashboard from './pages/Dashboard'
 import PrivateRoute from './PrivateRoute'
 import ProvideAuth from './ProvideAuth'
 

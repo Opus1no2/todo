@@ -1,10 +1,9 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Item from './Item'
 import PropTypes from 'prop-types'
 
 const TodoList = (props) => {
-  const { listId, listItems, handleComplete } = props
-  const [selected, setSelected] = useState(false)
+  const { listId, listItems, handleComplete, setListItem } = props
 
   return (
     <>
@@ -13,9 +12,8 @@ const TodoList = (props) => {
                   key={i}
                   item={item}
                   listId={listId}
-                  selected={selected === item.id}
-                  setSelected={setSelected}
                   handleComplete={handleComplete}
+                  setListItem={setListItem}
                 />)
       })}
 
@@ -26,7 +24,8 @@ const TodoList = (props) => {
 TodoList.propTypes = {
   listId: PropTypes.number,
   listItems: PropTypes.array,
-  handleComplete: PropTypes.func
+  handleComplete: PropTypes.func,
+  setListItem: PropTypes.func
 }
 
 export default TodoList

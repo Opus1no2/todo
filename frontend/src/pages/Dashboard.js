@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react'
-import * as fromApi from './api/todoLists'
-import * as fromTodoList from './api/todoList'
-
-import TodoLists from './TodoLists'
 import styled from 'styled-components'
-import Header from './Header'
-import TodoList from './TodoList'
-import TextInput from './ui/TextInput'
+
+import * as fromApi from '../api/todoLists'
+import * as fromTodoList from '../api/todoList'
+
+import TodoLists from '../TodoLists'
+import Header from '../Header'
+import TodoList from '../TodoList'
+import TextInput from '../ui/TextInput'
+import ItemInfo from '../TodoList/ItemInfo'
 
 const DashboardCont = styled.div`
   display: flex;
@@ -61,6 +63,7 @@ const Dashboard = () => {
   const [listId, setListId] = useState()
   const [todoLists, setTodoLists] = useState([])
   const [listItems, setListItems] = useState([])
+  const [listItem, setListItem] = useState({})
 
   useEffect(() => {
     fromApi.todoLists().then((resp) => {
@@ -120,9 +123,17 @@ const Dashboard = () => {
           </NavList>
         </ListNav>
         <ListCont>
-          {listItems.length ? <TodoList listId={listId} listItems={listItems} handleComplete={handleComplete} /> : null}
+          {listItems.length
+            ? <TodoList
+              listId={listId}
+              listItems={listItems}
+              handleComplete={handleComplete}
+              setListItem={setListItem} />
+            : null
+          }
           <ItemInput onKeyPress={handleCreate} placeholder="new item" />
         </ListCont>
+        <ItemInfo listItem={listItem} />
       </Cont>
     </DashboardCont>
   )
