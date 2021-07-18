@@ -11,11 +11,23 @@ const ItemCont = styled.div`
   padding: 1rem;
 `
 
+const InfoList = styled.ul`
+  list-style: none;
+  margin: 0;
+  padding: 0;
+`
+
 const ItemInfo = (props) => {
   const { listItem } = props
-
+  console.log(listItem)
   return (
-    <ItemCont>{listItem.description}</ItemCont>
+    <ItemCont>
+      <InfoList>
+        <li><strong>name:</strong> {listItem.description}</li>
+        <li><strong>created:</strong> {listItem.created_at}</li>
+        <li><strong>due date:</strong> {listItem.due_at || 'none'}</li>
+      </InfoList>
+    </ItemCont>
   )
 }
 
