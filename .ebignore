@@ -1,2 +1,9 @@
 frontend/
 Procfile
+
+/config/master.key
+
+/storage/*
+!/storage/.keep
+.byebug_history
+
