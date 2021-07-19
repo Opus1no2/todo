@@ -16,7 +16,6 @@ const TodoList = (props) => {
                   setListItem={setListItem}
                 />)
       })}
-
     </>
   )
 }

@@ -118,7 +118,7 @@ const Dashboard = () => {
       <Cont>
         <ListNav>
           <NavList>
-            <TodoLists todoLists={todoLists} setListId={setListId} />
+            {todoLists.length ? <TodoLists todoLists={todoLists} setListId={setListId} /> : null }
             <ListInput onKeyPress={createList} placeholder="NEW LIST" />
           </NavList>
         </ListNav>
