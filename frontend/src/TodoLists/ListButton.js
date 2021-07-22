@@ -44,8 +44,8 @@ const ListButton = (props) => {
 }
 
 ListButton.propTypes = {
-  list: PropTypes.array,
-  selectedList: PropTypes.array,
+  list: PropTypes.object,
+  selectedList: PropTypes.bool,
   setSelectedList: PropTypes.func,
   setListId: PropTypes.func
 }

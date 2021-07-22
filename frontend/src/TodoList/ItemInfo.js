@@ -19,7 +19,7 @@ const InfoList = styled.ul`
 
 const ItemInfo = (props) => {
   const { listItem } = props
-  console.log(listItem)
+
   return (
     <ItemCont>
       <InfoList>
