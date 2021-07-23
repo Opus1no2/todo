@@ -2,7 +2,6 @@
 
 require 'rails_helper'
 
-# rubocop:disable Metrics/BlockLength
 RSpec.describe 'authentication', type: :request do
   let(:user) { FactoryBot.create(:user) }
   let(:params) { { email: user.email, password: user.password } }
@@ -14,7 +13,7 @@ RSpec.describe 'authentication', type: :request do
       end
 
       it 'returns an http success' do
-        expect(response).to have_http_status(200)
+        expect(response).to have_http_status(:ok)
       end
 
       it 'returns the user' do
@@ -31,12 +30,12 @@ RSpec.describe 'authentication', type: :request do
 
       it 'returns an http unauthorized' do
         post '/v1/auth/sign_in', params: params
-        expect(response).to have_http_status(401)
+        expect(response).to have_http_status(:unauthorized)
       end
 
       it 'returns success as false' do
         post '/v1/auth/sign_in', params: params
-        expect(JSON(response.body).dig('success')).to eq(false)
+        expect(JSON(response.body)['success']).to eq(false)
       end
     end
   end
@@ -45,14 +44,11 @@ RSpec.describe 'authentication', type: :request do
     it 'validates tokens' do
       post '/v1/auth/sign_in', params: params
 
-      get '/v1/auth/validate_token', params: {
-        uid: response.headers['uid'],
-        client: response.headers['client'],
-        'access-token' => response.headers['access-token']
-      }
+      get '/v1/auth/validate_token',
+          params: { uid: response.headers['uid'], client: response.headers['client'],
+                    'access-token' => response.headers['access-token'] }
 
-      expect(response).to have_http_status(200)
+      expect(response).to have_http_status(:ok)
     end
   end
 end
-# rubocop:enable Metrics/BlockLength

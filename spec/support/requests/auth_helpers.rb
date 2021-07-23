@@ -1,18 +1,18 @@
-# spec/support/requests/auth_helpers.rb
+# frozen_string_literal: true
 
 module Requests
   module AuthHelpers
     module Extensions
       def sign_in(user)
-        let(:auth_helpers_auth_token) {
-          self.public_send(user).create_new_auth_token
-        }
+        let(:auth_helpers_auth_token) do
+          public_send(user).create_new_auth_token
+        end
       end
     end
 
     module Includables
       HTTP_HELPERS_TO_OVERRIDE =
-        [:get, :post, :patch, :put, :delete].freeze
+        %i[get post patch put delete].freeze
       # Override helpers for Rails 5.0
       # see http://api.rubyonrails.org/v5.0/classes/ActionDispatch/Integration/RequestHelpers.html
       HTTP_HELPERS_TO_OVERRIDE.each do |helper|
@@ -26,6 +26,7 @@ module Requests
 
       def add_auth_headers(args)
         return unless defined? auth_helpers_auth_token
+
         args[:headers] ||= {}
         args[:headers].merge!(auth_helpers_auth_token)
       end
