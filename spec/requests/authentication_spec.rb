@@ -2,23 +2,57 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Authentication', type: :request do
-  let(:user) { create(:user) }
-  let(:headers) { { 'ACCEPT' => 'application/json' } }
+# rubocop:disable Metrics/BlockLength
+RSpec.describe 'authentication', type: :request do
+  let(:user) { FactoryBot.create(:user) }
+  let(:params) { { email: user.email, password: user.password } }
 
-  before do
-    post '/api/login', params: { user: { email: user.email, password: user.password } }, headers: headers
+  describe 'login' do
+    context 'with correct credentials' do
+      before do
+        post '/v1/auth/sign_in', params: params
+      end
+
+      it 'returns an http success' do
+        expect(response).to have_http_status(200)
+      end
+
+      it 'returns the user' do
+        expect(JSON(response.body).dig('data', 'email')).to eq(user.email)
+      end
+    end
+
+    context 'with incorrect credentials' do
+      let(:params) { { email: user.email, password: 'incorrect' } }
+
+      before do
+        post '/v1/auth/sign_in', params: params
+      end
+
+      it 'returns an http unauthorized' do
+        post '/v1/auth/sign_in', params: params
+        expect(response).to have_http_status(401)
+      end
+
+      it 'returns success as false' do
+        post '/v1/auth/sign_in', params: params
+        expect(JSON(response.body).dig('success')).to eq(false)
+      end
+    end
   end
 
-  it 'returns a token' do
-    expect(response.body).to include(user.email)
-  end
+  describe 'validate token' do
+    it 'validates tokens' do
+      post '/v1/auth/sign_in', params: params
 
-  it 'returns 200' do
-    expect(response).to have_http_status(:created)
-  end
+      get '/v1/auth/validate_token', params: {
+        uid: response.headers['uid'],
+        client: response.headers['client'],
+        'access-token' => response.headers['access-token']
+      }
 
-  it 'returns json' do
-    expect(response.content_type).to eq('application/json; charset=utf-8')
+      expect(response).to have_http_status(200)
+    end
   end
 end
+# rubocop:enable Metrics/BlockLength

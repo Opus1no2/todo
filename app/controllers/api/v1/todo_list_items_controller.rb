@@ -24,7 +24,7 @@ module Api
       private
 
       def load_todo_list
-        @todo_list = TodoList.find_by!(id: permitted[:todo_list_id], user: current_user)
+        @todo_list = TodoList.find_by!(id: permitted[:todo_list_id], user: current_v1_user)
       end
 
       def todo_list_item

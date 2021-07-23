@@ -1,22 +1,18 @@
 const useToken = () => {
   const TOKEN_KEY = '__token__'
-  const set = (token) => {
-    localStorage.setItem(TOKEN_KEY, token)
+  const set = (client, accessToken, uid) => {
+    localStorage.setItem(TOKEN_KEY, JSON.stringify({ client, accessToken, uid }))
   }
   const get = () => {
-    return localStorage.getItem(TOKEN_KEY)
+    return JSON.parse(localStorage.getItem(TOKEN_KEY))
   }
   const unset = () => {
     localStorage.removeItem(TOKEN_KEY)
   }
-  const save = (authHeader) => {
-    const token = authHeader.split('Bearer').pop().trim()
-    set(token)
-  }
 
   return {
     get,
-    save,
+    set,
     unset
   }
 }

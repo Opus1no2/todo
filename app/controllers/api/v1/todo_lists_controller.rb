@@ -4,11 +4,11 @@ module Api
   module V1
     class TodoListsController < Api::V1::BaseController
       def index
-        render json: TodoList.where(user: current_user).to_json(index_options)
+        render json: TodoList.where(user: current_v1_user).to_json(index_options)
       end
 
       def create
-        render json: TodoList.create!(create_params.merge(user: current_user))
+        render json: TodoList.create!(create_params.merge(user: current_v1_user))
       end
 
       def index_options

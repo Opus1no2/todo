@@ -20,7 +20,8 @@ rescue ActiveRecord::PendingMigrationError => e
 end
 
 RSpec.configure do |config|
-  config.include Devise::Test::IntegrationHelpers, type: :request
+  config.include Requests::AuthHelpers::Includables, type: :request
+  config.extend Requests::AuthHelpers::Extensions, type: :request
 
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
