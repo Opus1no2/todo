@@ -29,15 +29,16 @@ const Row = styled.div`
 const ListCont = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   padding: 1rem;
   flex: 1;
 `
 
 const ItemInput = styled(TextInput)`
-  margin-bottom: 4rem;
+  margin-bottom: 2rem;
   justify-self: flex-end;
-  background: #ececec;
   width: 100%;
+  border: solid 1px #96c2f9;
 `
 
 const ListInput = styled(TextInput)`
@@ -123,14 +124,16 @@ const Dashboard = () => {
           </NavList>
         </ListNav>
         <ListCont>
-          {listItems.length
-            ? <TodoList
+          <div>
+            {listItems.length
+              ? <TodoList
               listId={listId}
               listItems={listItems}
               handleComplete={handleComplete}
               setListItem={setListItem} />
-            : null
+              : null
           }
+          </div>
           <ItemInput onKeyPress={handleCreate} placeholder="new item" />
         </ListCont>
         <ItemInfo listItem={listItem} />

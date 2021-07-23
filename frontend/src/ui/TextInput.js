@@ -17,6 +17,7 @@ const StyledTextInput = styled.input`
   line-height: inherit;
 
   padding: .5rem;
+  width: 100%;
 `
 
 const TextInput = (props) => {

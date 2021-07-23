@@ -20,7 +20,7 @@ const Btn = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: .5rem;
+  margin-top: 1rem;
   padding: .5rem;
 
   &:hover {
@@ -28,6 +28,10 @@ const Btn = styled.button`
     background: #4aabff;
     color: white;
   }
+`
+
+const FormCont = styled.div`
+  width: 25%;
 `
 
 const Login = () => {
@@ -43,15 +47,17 @@ const Login = () => {
 
   return (
     <Container>
+      <FormCont>
       <form onSubmit={authenticate}>
         <div>
-          <TextInput type="email" placeholder="your@email.com" onChange={(e) => setEmail(e.target.value)} />
+          <TextInput type="email" id="email" placeholder="your@email.com" onChange={(e) => setEmail(e.target.value)} />
         </div>
         <div>
-          <TextInput type="password" placeholder="password" onChange={(e) => setPassword(e.target.value)} />
+          <TextInput type="password" id="password" placeholder="password" onChange={(e) => setPassword(e.target.value)} />
         </div>
         <Btn type="submit">Login</Btn>
       </form>
+      </FormCont>
     </Container>
   )
 }
