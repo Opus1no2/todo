@@ -16,6 +16,16 @@ const InfoList = styled.ul`
   margin: 0;
   padding: 0;
 `
+const ListAttr = styled.span`
+  font-weight: 400;
+
+`
+const ListVal = styled.li`
+  font-weight: 300;
+  margin-bottom: .5rem;
+  border-bottom: solid 1px #d0d0d0;
+  line-height: 2rem;
+`
 
 const ItemInfo = (props) => {
   const { listItem } = props
@@ -23,9 +33,9 @@ const ItemInfo = (props) => {
   return (
     <ItemCont>
       <InfoList>
-        <li><strong>name:</strong> {listItem.description}</li>
-        <li><strong>created:</strong> {listItem.created_at}</li>
-        <li><strong>due date:</strong> {listItem.due_at || 'none'}</li>
+        <ListVal><ListAttr>name:</ListAttr> {listItem.description}</ListVal>
+        <ListVal><ListAttr>created:</ListAttr> {listItem.created_at}</ListVal>
+        <ListVal><ListAttr>due date:</ListAttr> {listItem.due_at || 'none'}</ListVal>
       </InfoList>
     </ItemCont>
   )
