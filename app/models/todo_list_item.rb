@@ -5,4 +5,8 @@ class TodoListItem < ApplicationRecord
   validates :description, presence: true
 
   belongs_to :todo_list
+
+  def self.completed_last
+    order(completed_at: :desc, created_at: :desc)
+  end
 end

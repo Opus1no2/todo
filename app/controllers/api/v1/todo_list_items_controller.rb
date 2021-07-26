@@ -6,7 +6,7 @@ module Api
       before_action :load_todo_list
 
       def index
-        render json: @todo_list.todo_list_items, status: :ok
+        render json: @todo_list.todo_list_items.completed_last, status: :ok
       end
 
       def update

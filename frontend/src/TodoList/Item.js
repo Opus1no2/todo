@@ -7,27 +7,39 @@ const ItemDisplay = styled.div`
   flex: 1;
 `
 const ListItem = styled.div`
-  display: ${props => props.completed ? 'none' : 'flex'};
   align-items: center;
   border-bottom: solid 1px #d0e3ff;
+  margin-bottom: .3rem;
+  display: ${props => props.completed ? 'flex' : 'flex'};
+  background: ${props => props.completed ? '#d6d6d6' : 'white'};
+  text-decoration: ${props => props.completed ? 'line-through' : 'none'};
+  color: ${props => props.completed ? 'grey' : 'none'};
 
   &:hover {
     cursor: pointer;
-    background: #f4f9ff;
+    background: ${props => props.completed ? '#d6d6d6' : '#f4f9ff'};
   }
 `
 
 const Item = (props) => {
-  const { item, handleComplete, setListItem } = props
+  const { item, handleComplete, setListItem, showComplete } = props
   const [description, setDescription] = useState(item.description)
 
   useEffect(() => {
     setDescription(item.description)
   }, [item.description, setDescription])
 
+  if (!showComplete && item.completed_at) return null
+
   return (
     <ListItem completed={item.completed_at}>
-      <input type="radio" onChange={handleComplete} value={item.id} />
+      { !item.completed_at
+        ? <input
+          type="radio"
+        onChange={handleComplete}
+        value={item.id} />
+        : null
+      }
       <ItemDisplay onClick={() => setListItem(item)}>{description}</ItemDisplay>
     </ListItem>
   )
@@ -39,7 +51,8 @@ Item.propTypes = {
   selected: PropTypes.bool,
   setSelected: PropTypes.func,
   handleComplete: PropTypes.func,
-  setListItem: PropTypes.func
+  setListItem: PropTypes.func,
+  showComplete: PropTypes.bool
 }
 
 export default Item

@@ -60,11 +60,33 @@ const NavList = styled.ul`
   margin: 0;
 `
 
+const PillBtn = styled.button`
+  background: white;
+  border: solid 1px;
+  text-decoration: none;
+  padding: .3rem;
+  border-radius: 1rem;
+  font-weight: 300;
+  background: ${props => props.showComplete ? '#616161' : 'white'};
+  color: ${props => props.showComplete ? 'white' : 'black'};
+  border-color: ${props => props.showComplete ? 'none' : '#d0d0d0'};
+
+  &:hover {
+    cursor: pointer;
+  }
+`
+
+const AlignRight = styled(Row)`
+  justify-content: flex-end;
+  margin-bottom: .5rem;
+`
+
 const Dashboard = () => {
   const [listId, setListId] = useState()
   const [todoLists, setTodoLists] = useState([])
   const [listItems, setListItems] = useState([])
   const [listItem, setListItem] = useState({})
+  const [showComplete, setShowComplete] = useState(false)
 
   useEffect(() => {
     fromApi.todoLists().then((resp) => {
@@ -85,7 +107,8 @@ const Dashboard = () => {
 
     if (e.key === 'Enter') {
       fromTodoList.createListItem(listId, description).then((resp) => {
-        setListItems(listItems.concat(resp.data))
+        listItems.unshift(resp.data)
+        setListItems([...listItems])
         e.target.value = null
       })
     }
@@ -111,6 +134,10 @@ const Dashboard = () => {
     }
   }
 
+  const handleShowComplete = () => {
+    setShowComplete(!showComplete)
+  }
+
   return (
     <DashboardCont>
       <Row>
@@ -119,20 +146,29 @@ const Dashboard = () => {
       <Cont>
         <ListNav>
           <NavList>
-            {todoLists.length ? <TodoLists todoLists={todoLists} setListId={setListId} /> : null }
+            {todoLists.length
+              ? <TodoLists
+              todoLists={todoLists}
+              setListId={setListId} />
+              : null
+            }
             <ListInput onKeyPress={createList} placeholder="NEW LIST" />
           </NavList>
         </ListNav>
         <ListCont>
           <div>
+            <AlignRight>
+              <PillBtn onClick={handleShowComplete} showComplete={showComplete}>Show Complete</PillBtn>
+            </AlignRight>
             {listItems.length
               ? <TodoList
               listId={listId}
               listItems={listItems}
               handleComplete={handleComplete}
-              setListItem={setListItem} />
+              setListItem={setListItem}
+              showComplete={showComplete} />
               : null
-          }
+            }
           </div>
           <ItemInput onKeyPress={handleCreate} placeholder="new item" />
         </ListCont>
