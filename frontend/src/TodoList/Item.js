@@ -11,7 +11,7 @@ const ListItem = styled.div`
   border-bottom: solid 1px #d0e3ff;
   margin-bottom: .3rem;
   display: ${props => props.completed ? 'flex' : 'flex'};
-  background: ${props => props.completed ? '#d6d6d6' : 'white'};
+  background: ${props => props.completed ? '#f3f3f3' : 'white'};
   text-decoration: ${props => props.completed ? 'line-through' : 'none'};
   color: ${props => props.completed ? 'grey' : 'none'};
 

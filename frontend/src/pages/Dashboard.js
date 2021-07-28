@@ -27,6 +27,7 @@ const Row = styled.div`
 `
 
 const ListCont = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -35,10 +36,16 @@ const ListCont = styled.div`
 `
 
 const ItemInput = styled(TextInput)`
-  margin-bottom: 2rem;
-  justify-self: flex-end;
-  width: 100%;
   border: solid 1px #96c2f9;
+`
+
+const ItemInputCont = styled.div`
+  background: white;
+  position: sticky;
+  bottom: 0;
+  width: inherit;
+  padding-top: 1rem;
+  padding-bottom: 2rem;
 `
 
 const ListInput = styled(TextInput)`
@@ -170,7 +177,9 @@ const Dashboard = () => {
               : null
             }
           </div>
-          <ItemInput onKeyPress={handleCreate} placeholder="new item" />
+          <ItemInputCont>
+            <ItemInput onKeyPress={handleCreate} placeholder="new item" />
+          </ItemInputCont>
         </ListCont>
         <ItemInfo listItem={listItem} />
       </Cont>
