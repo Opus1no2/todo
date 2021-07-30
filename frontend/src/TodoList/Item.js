@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
+import listContext from '../listContext'
+import * as fromApi from '../api/todoList'
 
 const ItemDisplay = styled.div`
   padding: .5rem;
@@ -21,9 +23,25 @@ const ListItem = styled.div`
   }
 `
 
+const DeleteBtn = styled.button`
+  border: none;
+  background: transparent;
+  font-size: 1rem;
+
+  &:hover {
+    cursor: pointer;
+  }
+`
+
 const Item = (props) => {
+  const listId = useContext(listContext)
   const { item, handleComplete, setListItem, showComplete } = props
   const [description, setDescription] = useState(item.description)
+  const handleDelete = () => {
+    fromApi.destroyItem(listId, item.id).then((resp) => {
+      console.log('resp', resp.data)
+    })
+  }
 
   useEffect(() => {
     setDescription(item.description)
@@ -35,19 +53,19 @@ const Item = (props) => {
     <ListItem completed={item.completed_at}>
       { !item.completed_at
         ? <input
-          type="radio"
-        onChange={handleComplete}
-        value={item.id} />
+            type="radio"
+            onChange={handleComplete}
+            value={item.id} />
         : null
       }
       <ItemDisplay onClick={() => setListItem(item)}>{description}</ItemDisplay>
+      <DeleteBtn onClick={handleDelete}>&times;</DeleteBtn>
     </ListItem>
   )
 }
 
 Item.propTypes = {
   item: PropTypes.any,
-  listId: PropTypes.number,
   selected: PropTypes.bool,
   setSelected: PropTypes.func,
   handleComplete: PropTypes.func,

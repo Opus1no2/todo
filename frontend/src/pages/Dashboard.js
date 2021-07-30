@@ -9,6 +9,7 @@ import Header from '../Header'
 import TodoList from '../TodoList'
 import TextInput from '../ui/TextInput'
 import ItemInfo from '../TodoList/ItemInfo'
+import ProvideList from '../ProvideList'
 
 const DashboardCont = styled.div`
   display: flex;
@@ -155,32 +156,38 @@ const Dashboard = () => {
           <NavList>
             {todoLists.length
               ? <TodoLists
-              todoLists={todoLists}
-              setListId={setListId} />
+                  todoLists={todoLists}
+                  setListId={setListId} />
               : null
             }
             <ListInput onKeyPress={createList} placeholder="NEW LIST" />
           </NavList>
         </ListNav>
-        <ListCont>
-          <div>
-            <AlignRight>
-              <PillBtn onClick={handleShowComplete} showComplete={showComplete}>Show Complete</PillBtn>
-            </AlignRight>
-            {listItems.length
-              ? <TodoList
-              listId={listId}
-              listItems={listItems}
-              handleComplete={handleComplete}
-              setListItem={setListItem}
-              showComplete={showComplete} />
-              : null
-            }
-          </div>
-          <ItemInputCont>
-            <ItemInput onKeyPress={handleCreate} placeholder="new item" />
-          </ItemInputCont>
-        </ListCont>
+        <ProvideList listId={listId}>
+          <ListCont>
+            <div>
+              <AlignRight>
+                <PillBtn
+                  onClick={handleShowComplete}
+                  showComplete={showComplete}
+                >
+                  Show Complete
+                </PillBtn>
+              </AlignRight>
+              {listItems.length
+                ? <TodoList
+                    listItems={listItems}
+                    handleComplete={handleComplete}
+                    setListItem={setListItem}
+                    showComplete={showComplete} />
+                : null
+              }
+            </div>
+            <ItemInputCont>
+              <ItemInput onKeyPress={handleCreate} placeholder="new item" />
+            </ItemInputCont>
+          </ListCont>
+        </ProvideList>
         <ItemInfo listItem={listItem} />
       </Cont>
     </DashboardCont>

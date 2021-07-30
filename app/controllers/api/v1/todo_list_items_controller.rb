@@ -21,14 +21,22 @@ module Api
         render json: @todo_list.todo_list_items.create!(item_params)
       end
 
+      def destroy
+        if todo_list_item.present?
+          render json: todo_list_item.destroy, status: :ok
+        else
+          render json: {}, status: :not_found
+        end
+      end
+
       private
 
       def load_todo_list
-        @todo_list = TodoList.find_by!(id: permitted[:todo_list_id], user: current_v1_user)
+        @todo_list = TodoList.find_by(id: permitted[:todo_list_id], user: current_v1_user)
       end
 
       def todo_list_item
-        @todo_list.todo_list_items.find(permitted[:id])
+        @todo_list.todo_list_items.find_by(id: permitted[:id])
       end
 
       def permitted
