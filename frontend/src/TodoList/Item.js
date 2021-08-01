@@ -8,16 +8,18 @@ const ItemDisplay = styled.div`
 `
 const ListItem = styled.div`
   align-items: center;
-  border-bottom: solid 1px ${props => props.theme.borderBlue};
-  margin-bottom: .3rem;
   display: ${props => props.completed ? 'flex' : 'flex'};
   background: ${props => props.completed ? props.theme.deactivated : props.theme.mediumBlue};
   text-decoration: ${props => props.completed ? 'line-through' : 'none'};
   color: ${props => props.completed ? 'grey' : props.theme.fontWhite};
 
+  border-left: solid 2px ${props => props.theme.mediumBlue};
+  border-bottom: solid 1px ${props => props.theme.borderBlue};
+
   &:hover {
     cursor: pointer;
     background: ${props => props.completed ? props.theme.deactivated : props.theme.lightBlue};
+    border-left: solid 2px white;
   }
 `
 
@@ -40,7 +42,14 @@ const CompleteBtn = styled.button(
     height: 14px;
     width: 14px;
     border-radius: 50%;
-    margin-right: 5px;
+    margin-right: .5rem;
+    margin-left: .5rem;
+
+    &:hover {
+      cursor: pointer;
+      background: ${theme.green};
+      border: solid 1px white;
+    }
   `
 )
 
