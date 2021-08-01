@@ -38,6 +38,7 @@ const ListCont = styled.div`
 const ItemInput = styled(TextInput)`
   border: solid 1px ${props => props.theme.borderBlue};
   color: white;
+  background: ${props => props.theme.darkBlue}
 `
 
 const ItemInputCont = styled.div`
@@ -51,10 +52,11 @@ const ItemInputCont = styled.div`
 
 const ListInput = styled(TextInput)`
   color: white;
-  background: ${props => props.theme.lightBlue};
+  background: ${props => props.theme.darkBlue};
   width: 100%;
   padding: 1rem;
   border: none;
+  border-bottom: solid 1px ${props => props.theme.borderBlue};
 `
 
 const ListNav = styled.nav`

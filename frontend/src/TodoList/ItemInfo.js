@@ -18,7 +18,7 @@ const InfoList = styled.ul`
 `
 const ListAttr = styled.span`
   font-weight: 400;
-
+  color: ${props => props.theme.green};
 `
 const ListVal = styled.li`
   font-weight: 300;

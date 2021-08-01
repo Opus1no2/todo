@@ -9,12 +9,15 @@ const ListBtn = styled.button`
   border: none;
   background: inherit;
   color: ${props => props.theme.green};
+  border-bottom: solid 1px ${props => props.theme.borderBlue};
+  border-left: solid 2px ${props => props.theme.darkBlue};
   padding: 1rem;
   text-transform: uppercase;
 
   &:hover {
     cursor: pointer;
     background: ${props => props.theme.mediumBlue};
+    border-left: solid 2px white;
   }
 `
 
