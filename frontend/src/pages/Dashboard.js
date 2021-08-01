@@ -9,7 +9,6 @@ import Header from '../Header'
 import TodoList from '../TodoList'
 import TextInput from '../ui/TextInput'
 import ItemInfo from '../TodoList/ItemInfo'
-import ProvideList from '../ProvideList'
 
 const DashboardCont = styled.div`
   display: flex;
@@ -123,11 +122,23 @@ const Dashboard = () => {
   }
 
   const handleComplete = (e) => {
-    fromTodoList.updateListItem(e.target.value, listId, { completed_at: Date() }).then((resp) => {
+    const itemId = e.target.value
+    const data = { completed_at: Date() }
+
+    fromTodoList.updateListItem(itemId, listId, data).then((resp) => {
       const newList = listItems.filter((item) => {
         return item.id !== resp.data.id
       })
       setListItems(newList.concat(resp.data))
+    })
+  }
+
+  const handleDelete = (item) => {
+    fromTodoList.destroyItem(listId, item.id).then((resp) => {
+      const newList = listItems.filter((item) => {
+        return item.id !== resp.data.id
+      })
+      setListItems(newList)
     })
   }
 
@@ -163,7 +174,6 @@ const Dashboard = () => {
             <ListInput onKeyPress={createList} placeholder="NEW LIST" />
           </NavList>
         </ListNav>
-        <ProvideList listId={listId}>
           <ListCont>
             <div>
               <AlignRight>
@@ -178,6 +188,7 @@ const Dashboard = () => {
                 ? <TodoList
                     listItems={listItems}
                     handleComplete={handleComplete}
+                    handleDelete={handleDelete}
                     setListItem={setListItem}
                     showComplete={showComplete} />
                 : null
@@ -187,7 +198,6 @@ const Dashboard = () => {
               <ItemInput onKeyPress={handleCreate} placeholder="new item" />
             </ItemInputCont>
           </ListCont>
-        </ProvideList>
         <ItemInfo listItem={listItem} />
       </Cont>
     </DashboardCont>

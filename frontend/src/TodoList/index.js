@@ -3,7 +3,13 @@ import Item from './Item'
 import PropTypes from 'prop-types'
 
 const TodoList = (props) => {
-  const { listItems, handleComplete, setListItem, showComplete } = props
+  const {
+    listItems,
+    handleComplete,
+    handleDelete,
+    setListItem,
+    showComplete
+  } = props
 
   return (
     <>
@@ -12,6 +18,7 @@ const TodoList = (props) => {
                   key={i}
                   item={item}
                   handleComplete={handleComplete}
+                  handleDelete={handleDelete}
                   setListItem={setListItem}
                   showComplete={showComplete}
                 />)
@@ -23,6 +30,7 @@ const TodoList = (props) => {
 TodoList.propTypes = {
   listItems: PropTypes.array,
   handleComplete: PropTypes.func,
+  handleDelete: PropTypes.func,
   setListItem: PropTypes.func,
   showComplete: PropTypes.bool
 }
