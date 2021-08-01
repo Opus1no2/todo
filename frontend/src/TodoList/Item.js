@@ -13,7 +13,7 @@ const ListItem = styled.div`
   display: ${props => props.completed ? 'flex' : 'flex'};
   background: ${props => props.completed ? props.theme.deactivated : props.theme.mediumBlue};
   text-decoration: ${props => props.completed ? 'line-through' : 'none'};
-  color: ${props => props.completed ? 'grey' : 'white'};
+  color: ${props => props.completed ? 'grey' : props.theme.fontWhite};
 
   &:hover {
     cursor: pointer;
@@ -32,8 +32,27 @@ const DeleteBtn = styled.button`
   }
 `
 
+const CompleteBtn = styled.button(
+  ({ theme }) => `
+    appearance: none;
+    border: solid grey 1px;
+    background: ${theme.darkBlue};
+    height: 14px;
+    width: 14px;
+    border-radius: 50%;
+    margin-right: 5px;
+  `
+)
+
 const Item = (props) => {
-  const { item, handleComplete, setListItem, showComplete, handleDelete } = props
+  const {
+    item,
+    handleComplete,
+    setListItem,
+    showComplete,
+    handleDelete
+  } = props
+
   const [description, setDescription] = useState(item.description)
 
   useEffect(() => {
@@ -45,10 +64,10 @@ const Item = (props) => {
   return (
     <ListItem completed={item.completed_at}>
       { !item.completed_at
-        ? <input
+        ? <CompleteBtn
             type="radio"
-            onChange={handleComplete}
-            value={item.id} />
+            onClick={() => handleComplete(item)}
+          ></CompleteBtn>
         : null
       }
       <ItemDisplay onClick={() => setListItem(item)}>{description}</ItemDisplay>

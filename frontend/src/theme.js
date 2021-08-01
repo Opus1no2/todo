@@ -6,5 +6,6 @@ export const theme = {
   deactivated: '#183f4e',
   lightYellow: '#fffabc',
   green: '#159415',
-  grey: '#364548'
+  grey: '#364548',
+  fontWhite: '#a7c0d4'
 }

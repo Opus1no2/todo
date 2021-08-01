@@ -18,19 +18,22 @@ const Ul = styled.ul`
   margin: 0;
 `
 
-const LogoutBtn = styled.button`
-  appearnce: none;
-  border: none;
-  background: white;
-  padding: .5rem;
-  text-transform: uppercase;
+const LogoutBtn = styled.button(
+  ({ theme }) => `
+    appearnce: none;
+    border: none;
+    color: ${theme.fontWhite};
+    border: solid 1px white;
+    background: ${theme.lightBlue};
+    padding: .5rem;
+    text-transform: uppercase;
 
-  &:hover {
-    cursor: pointer;
-    background: #4aabff;
-    color: white;
-  }
-`
+    &:hover {
+      cursor: pointer;
+      color: white;
+    }
+  `
+)
 
 const Header = () => {
   const history = useHistory()

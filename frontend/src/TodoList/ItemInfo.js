@@ -8,7 +8,7 @@ const ItemCont = styled.div`
   min-width: 250px;
   background: ${props => props.theme.darkBlue};
   padding: 1rem;
-  color: white;
+  color: ${props => props.theme.fontWhite};
 `
 
 const InfoList = styled.ul`

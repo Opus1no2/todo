@@ -37,7 +37,7 @@ const ListCont = styled.div`
 
 const ItemInput = styled(TextInput)`
   border: solid 1px ${props => props.theme.borderBlue};
-  color: white;
+  color: ${props => props.theme.fontWhite};
   background: ${props => props.theme.darkBlue}
 `
 
@@ -71,18 +71,19 @@ const NavList = styled.ul`
 `
 
 const PillBtn = styled.button`
-  background: white;
-  border: solid 1px;
   text-decoration: none;
   padding: .3rem;
-  border-radius: 1rem;
   font-weight: 300;
-  background: ${props => props.showComplete ? '#616161' : 'white'};
-  color: ${props => props.showComplete ? 'white' : 'black'};
+  background: ${props => props.showComplete ? props.theme.lightBlue : 'transparent'};
+  color: ${props => props.showComplete ? 'white' : props.theme.fontWhite};
+
+  border: solid 1px;
   border-color: ${props => props.showComplete ? 'none' : '#d0d0d0'};
+  border-radius: 1rem;
 
   &:hover {
     cursor: pointer;
+    border-color: white;
   }
 `
 
@@ -124,8 +125,8 @@ const Dashboard = () => {
     }
   }
 
-  const handleComplete = (e) => {
-    const itemId = e.target.value
+  const handleComplete = (item) => {
+    const itemId = item.id
     const data = { completed_at: Date() }
 
     fromTodoList.updateListItem(itemId, listId, data).then((resp) => {
