@@ -1,6 +1,6 @@
 import React from 'react'
-import authContext from './authContext'
-import useProvideAuth from './hooks/useProvideAuth'
+import authContext from '../contexts/authContext'
+import useProvideAuth from '../hooks/useProvideAuth'
 import PropTypes from 'prop-types'
 
 const PrivideAuth = ({ children }) => {

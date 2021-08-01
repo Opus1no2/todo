@@ -1,7 +1,7 @@
 import React from 'react'
 import { useHistory } from 'react-router'
 import styled from 'styled-components'
-import useToken from './hooks/useToken'
+import useToken from '../hooks/useToken'
 
 const NavBar = styled.nav`
   display: flex;
