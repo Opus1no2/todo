@@ -6,9 +6,9 @@ const ItemCont = styled.div`
   display: flex;
   flex-direction: column;
   min-width: 250px;
-  background: #f0f6ff;
-  border-left: solid 1px #b9dfff;
+  background: ${props => props.theme.darkBlue};
   padding: 1rem;
+  color: white;
 `
 
 const InfoList = styled.ul`
@@ -23,7 +23,7 @@ const ListAttr = styled.span`
 const ListVal = styled.li`
   font-weight: 300;
   margin-bottom: .5rem;
-  border-bottom: solid 1px #d0d0d0;
+  border-bottom: solid 1px ${props => props.theme.borderBlue};
   line-height: 2rem;
 `
 

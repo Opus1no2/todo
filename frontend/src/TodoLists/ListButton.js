@@ -7,16 +7,14 @@ const ListBtn = styled.button`
   flex: 1;
 
   border: none;
-  background: ${props => props.selected ? '#d4edff' : 'white'};
-  border-bottom: solid 1px #b9dfff;
-  border-right: solid 1px #b9dfff;
-  color: #101010;
+  background: inherit;
+  color: ${props => props.theme.green};
   padding: 1rem;
   text-transform: uppercase;
 
   &:hover {
     cursor: pointer;
-    background: #dff0ff;
+    background: ${props => props.theme.mediumBlue};
   }
 `
 

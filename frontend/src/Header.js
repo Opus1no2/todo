@@ -6,8 +6,7 @@ import useToken from './hooks/useToken'
 const NavBar = styled.nav`
   display: flex;
   justify-content: flex-end;
-  border-bottom: solid 1px #b9dfff;
-  border-top: solid 6px #5db5ff;
+  background: ${props => props.theme.lightBlue};
   align-items: center;
   padding: 1rem;
   flex: 1;
@@ -22,7 +21,6 @@ const Ul = styled.ul`
 const LogoutBtn = styled.button`
   appearnce: none;
   border: none;
-  border: solid 1px grey;
   background: white;
   padding: .5rem;
   text-transform: uppercase;

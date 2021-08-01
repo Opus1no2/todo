@@ -8,16 +8,16 @@ const ItemDisplay = styled.div`
 `
 const ListItem = styled.div`
   align-items: center;
-  border-bottom: solid 1px #d0e3ff;
+  border-bottom: solid 1px ${props => props.theme.borderBlue};
   margin-bottom: .3rem;
   display: ${props => props.completed ? 'flex' : 'flex'};
-  background: ${props => props.completed ? '#f3f3f3' : 'white'};
+  background: ${props => props.completed ? props.theme.deactivated : props.theme.mediumBlue};
   text-decoration: ${props => props.completed ? 'line-through' : 'none'};
-  color: ${props => props.completed ? 'grey' : 'none'};
+  color: ${props => props.completed ? 'grey' : 'white'};
 
   &:hover {
     cursor: pointer;
-    background: ${props => props.completed ? '#d6d6d6' : '#f4f9ff'};
+    background: ${props => props.completed ? props.theme.deactivated : props.theme.lightBlue};
   }
 `
 
@@ -25,6 +25,7 @@ const DeleteBtn = styled.button`
   border: none;
   background: transparent;
   font-size: 1rem;
+  color: white;
 
   &:hover {
     cursor: pointer;

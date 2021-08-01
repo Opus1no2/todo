@@ -36,29 +36,30 @@ const ListCont = styled.div`
 `
 
 const ItemInput = styled(TextInput)`
-  border: solid 1px #96c2f9;
+  border: solid 1px ${props => props.theme.borderBlue};
+  color: white;
 `
 
 const ItemInputCont = styled.div`
-  background: white;
   position: sticky;
   bottom: 0;
   width: inherit;
   padding-top: 1rem;
   padding-bottom: 2rem;
+  background: ${props => props.theme.mediumBlue};
 `
 
 const ListInput = styled(TextInput)`
-  background: white;
+  color: white;
+  background: ${props => props.theme.lightBlue};
   width: 100%;
   padding: 1rem;
-  border-right: solid 1px #b9dfff;
-  border-bottom: solid 1px #b9dfff;
+  border: none;
 `
 
 const ListNav = styled.nav`
   width: 250px;
-  background: #f0f6ff;
+  background: ${props => props.theme.darkBlue};
 `
 
 const NavList = styled.ul`
