@@ -47,6 +47,5 @@ axios.interceptors.response.use((response) => {
 
   return response
 }, (err) => {
-  window.location.assign('/')
   return Promise.reject(err)
 })

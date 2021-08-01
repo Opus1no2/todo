@@ -21,8 +21,18 @@ const ListItem = styled.div`
   }
 `
 
+const DeleteBtn = styled.button`
+  border: none;
+  background: transparent;
+  font-size: 1rem;
+
+  &:hover {
+    cursor: pointer;
+  }
+`
+
 const Item = (props) => {
-  const { item, handleComplete, setListItem, showComplete } = props
+  const { item, handleComplete, setListItem, showComplete, handleDelete } = props
   const [description, setDescription] = useState(item.description)
 
   useEffect(() => {
@@ -35,22 +45,23 @@ const Item = (props) => {
     <ListItem completed={item.completed_at}>
       { !item.completed_at
         ? <input
-          type="radio"
-        onChange={handleComplete}
-        value={item.id} />
+            type="radio"
+            onChange={handleComplete}
+            value={item.id} />
         : null
       }
       <ItemDisplay onClick={() => setListItem(item)}>{description}</ItemDisplay>
+      <DeleteBtn onClick={() => handleDelete(item)}>&times;</DeleteBtn>
     </ListItem>
   )
 }
 
 Item.propTypes = {
   item: PropTypes.any,
-  listId: PropTypes.number,
   selected: PropTypes.bool,
   setSelected: PropTypes.func,
   handleComplete: PropTypes.func,
+  handleDelete: PropTypes.func,
   setListItem: PropTypes.func,
   showComplete: PropTypes.bool
 }

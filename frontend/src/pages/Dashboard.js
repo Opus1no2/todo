@@ -122,11 +122,23 @@ const Dashboard = () => {
   }
 
   const handleComplete = (e) => {
-    fromTodoList.updateListItem(e.target.value, listId, { completed_at: Date() }).then((resp) => {
+    const itemId = e.target.value
+    const data = { completed_at: Date() }
+
+    fromTodoList.updateListItem(itemId, listId, data).then((resp) => {
       const newList = listItems.filter((item) => {
         return item.id !== resp.data.id
       })
       setListItems(newList.concat(resp.data))
+    })
+  }
+
+  const handleDelete = (item) => {
+    fromTodoList.destroyItem(listId, item.id).then((resp) => {
+      const newList = listItems.filter((item) => {
+        return item.id !== resp.data.id
+      })
+      setListItems(newList)
     })
   }
 
@@ -155,32 +167,37 @@ const Dashboard = () => {
           <NavList>
             {todoLists.length
               ? <TodoLists
-              todoLists={todoLists}
-              setListId={setListId} />
+                  todoLists={todoLists}
+                  setListId={setListId} />
               : null
             }
             <ListInput onKeyPress={createList} placeholder="NEW LIST" />
           </NavList>
         </ListNav>
-        <ListCont>
-          <div>
-            <AlignRight>
-              <PillBtn onClick={handleShowComplete} showComplete={showComplete}>Show Complete</PillBtn>
-            </AlignRight>
-            {listItems.length
-              ? <TodoList
-              listId={listId}
-              listItems={listItems}
-              handleComplete={handleComplete}
-              setListItem={setListItem}
-              showComplete={showComplete} />
-              : null
-            }
-          </div>
-          <ItemInputCont>
-            <ItemInput onKeyPress={handleCreate} placeholder="new item" />
-          </ItemInputCont>
-        </ListCont>
+          <ListCont>
+            <div>
+              <AlignRight>
+                <PillBtn
+                  onClick={handleShowComplete}
+                  showComplete={showComplete}
+                >
+                  Show Complete
+                </PillBtn>
+              </AlignRight>
+              {listItems.length
+                ? <TodoList
+                    listItems={listItems}
+                    handleComplete={handleComplete}
+                    handleDelete={handleDelete}
+                    setListItem={setListItem}
+                    showComplete={showComplete} />
+                : null
+              }
+            </div>
+            <ItemInputCont>
+              <ItemInput onKeyPress={handleCreate} placeholder="new item" />
+            </ItemInputCont>
+          </ListCont>
         <ItemInfo listItem={listItem} />
       </Cont>
     </DashboardCont>
