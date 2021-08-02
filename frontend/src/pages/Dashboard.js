@@ -110,6 +110,7 @@ const Dashboard = () => {
 
     fromTodoList.todoList(listId).then((resp) => {
       setListItems(resp.data)
+      if (resp.data.length) setListItem(resp.data[0])
     })
   }, [listId])
 

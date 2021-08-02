@@ -10,11 +10,7 @@ export function updateListItem (itemId, listId, data) {
 }
 
 export function createListItem (listId, description) {
-  return axios.post(`/v1/todo_lists/${listId}/items`, {
-    todo_list_item: {
-      description: description
-    }
-  })
+  return axios.post(`/v1/todo_lists/${listId}/items`, { description })
 }
 
 export function destroyItem (listId, itemId) {
