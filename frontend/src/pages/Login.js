@@ -13,9 +13,10 @@ const Container = styled.div`
 `
 
 const Btn = styled.button`
-  background: white;
+  background: ${props => props.theme.darkBlue};
+  color: ${props => props.theme.fontWhite};
   border-radius: 0;
-  border: solid 1px grey;
+  border: solid 1px ${props => props.theme.borderBlue};
   width: 100%;
   display: flex;
   justify-content: center;
@@ -25,8 +26,7 @@ const Btn = styled.button`
 
   &:hover {
     cursor: pointer;
-    background: #4aabff;
-    color: white;
+    background: ${props => props.theme.lighBlue};
   }
 `
 
@@ -48,15 +48,15 @@ const Login = () => {
   return (
     <Container>
       <FormCont>
-      <form onSubmit={authenticate}>
-        <div>
-          <TextInput type="email" id="email" placeholder="your@email.com" onChange={(e) => setEmail(e.target.value)} />
-        </div>
-        <div>
-          <TextInput type="password" id="password" placeholder="password" onChange={(e) => setPassword(e.target.value)} />
-        </div>
-        <Btn type="submit">Login</Btn>
-      </form>
+        <form onSubmit={authenticate}>
+          <div>
+            <TextInput type="email" id="email" placeholder="your@email.com" onChange={(e) => setEmail(e.target.value)} />
+          </div>
+          <div>
+            <TextInput type="password" id="password" placeholder="password" onChange={(e) => setPassword(e.target.value)} />
+          </div>
+          <Btn type="submit">Login</Btn>
+        </form>
       </FormCont>
     </Container>
   )

@@ -56,7 +56,7 @@ const NoteInput = (props) => {
     <Cont>
       {isEditing
         ? <>
-          <TxtArea rows='10' onChange={(e) => setNotes(e.target.value)} placeholder={notes} />
+          <TxtArea rows='10' onChange={(e) => setNotes(e.target.value)} value={notes} />
           <Btn onClick={handleSave}>save</Btn>
           </>
         : <div>{notes}</div>

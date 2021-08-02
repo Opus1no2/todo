@@ -2,10 +2,10 @@ import React from 'react'
 import styled from 'styled-components'
 
 const StyledTextInput = styled.input`
-  border:none;
-  border-bottom: solid 1px #96c2f9;
-  background-image:none;
-  background-color:transparent;
+  border: none;
+  border-bottom: solid 1px ${props => props.theme.borderBlue};
+  background-image: none;
+  background-color: transparent !important;
   -webkit-appearance: none;
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
@@ -18,6 +18,8 @@ const StyledTextInput = styled.input`
 
   padding: .5rem;
   width: 100%;
+
+  color: ${props => props.theme.fontWhite};
 `
 
 const TextInput = (props) => {
