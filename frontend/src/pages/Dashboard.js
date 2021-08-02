@@ -202,7 +202,7 @@ const Dashboard = () => {
               <ItemInput onKeyPress={handleCreate} placeholder="new item" />
             </ItemInputCont>
           </ListCont>
-        <ItemInfo listItem={listItem} />
+        <ItemInfo listItem={listItem} listId={listId} />
       </Cont>
     </DashboardCont>
   )

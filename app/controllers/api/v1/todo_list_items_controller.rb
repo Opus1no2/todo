@@ -44,7 +44,7 @@ module Api
       end
 
       def item_params
-        params.require(:todo_list_item).permit(:description, :completed_at)
+        params.permit(:description, :completed_at, :notes)
       end
     end
   end

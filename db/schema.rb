@@ -10,10 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_23_021038) do
+ActiveRecord::Schema.define(version: 2021_08_01_200155) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "models", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.string "User"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["email"], name: "index_models_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_models_on_reset_password_token", unique: true
+  end
 
   create_table "todo_list_items", force: :cascade do |t|
     t.string "description"
@@ -22,6 +35,7 @@ ActiveRecord::Schema.define(version: 2021_07_23_021038) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.datetime "completed_at"
+    t.string "notes"
     t.index ["todo_list_id"], name: "index_todo_list_items_on_todo_list_id"
   end
 

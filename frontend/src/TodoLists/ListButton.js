@@ -7,10 +7,11 @@ const ListBtn = styled.button`
   flex: 1;
 
   border: none;
-  background: inherit;
+  background: ${props => props.selected ? props.theme.mediumBlue : 'inherit'};
   color: ${props => props.theme.green};
   border-bottom: solid 1px ${props => props.theme.borderBlue};
-  border-left: solid 2px ${props => props.theme.darkBlue};
+  border-left: solid 2px;
+  border-left-color: ${props => props.selected ? 'white' : props.theme.darkBlue};
   padding: 1rem;
   text-transform: uppercase;
 
