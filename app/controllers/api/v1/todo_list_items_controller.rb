@@ -44,7 +44,7 @@ module Api
       end
 
       def item_params
-        params.permit(:description, :completed_at, :notes)
+        params.permit(:description, :completed_at, :notes, :due_date)
       end
     end
   end

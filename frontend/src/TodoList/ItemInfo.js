@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import NoteInput from './NoteInput'
+import * as fromTodoList from '../api/todoList'
 
 const ItemCont = styled.div`
   display: flex;
@@ -31,35 +32,74 @@ const ListVal = styled.li`
 const NoteLi = styled(ListVal)`
   display: flex;
   justify-content: space-between;
+`
 
-  button {
+const EditBtn = styled.button(
+  ({ theme }) => `
     appearance: none;
     border: 0;
-    background: ${props => props.theme.darkBlue};
-    color: ${props => props.theme.fontEdit};
+    background: ${theme.darkBlue};
+    color: ${theme.fontEdit};
     text-decoration: underline;
 
     &:hover {
       cursor: pointer;
     }
-  }
-`
+  `
+)
+const DateInput = styled.input(
+  ({ theme }) => `
+    appearance: none;
+    border: solid 1px ${theme.borderBlue};
+    background: transparent;
+    color: ${theme.fontWhite};
+    padding-left: 5px;
+
+    &::-webkit-calendar-picker-indicator {
+      filter: invert(1);
+    }
+  `
+)
 
 const ItemInfo = (props) => {
   const { listItem, listId } = props
   const [editing, setEditing] = useState(false)
+  const [editDueDate, setEditDueDate] = useState(false)
+  const [dueDate, setDueDate] = useState()
+
+  useEffect(() => {
+    setDueDate(listItem.due_date)
+  }, [listItem.due_date])
+
+  const formatDate = (date) => {
+    if (!date) return
+    return new Date(date).toLocaleDateString()
+  }
+
+  const handleDueDate = (date) => {
+    fromTodoList.updateListItem(listItem.id, listId, { due_date: date }).then((resp) => {
+      setDueDate(resp.data.due_date)
+      setEditDueDate(false)
+    })
+  }
 
   return (
     <ItemCont>
       <InfoList>
         <ListVal><ListAttr>name:</ListAttr> {listItem.description}</ListVal>
-        <ListVal><ListAttr>created:</ListAttr> {listItem.created_at}</ListVal>
-        <ListVal><ListAttr>due date:</ListAttr> {listItem.due_at || 'none'}</ListVal>
+        <ListVal><ListAttr>created:</ListAttr> {formatDate(listItem.created_at)}</ListVal>
+        {dueDate && !editDueDate
+          ? <NoteLi>
+              <div><ListAttr>due date:</ListAttr> {formatDate(dueDate) || 'none'}</div>
+              <EditBtn onClick={() => setEditDueDate(!editDueDate)}>edit</EditBtn>
+            </NoteLi>
+          : <ListVal><ListAttr>due date:</ListAttr> <DateInput type='date' onChange={(e) => handleDueDate(e.target.value)} /></ListVal>
+        }
         <NoteLi>
           <div>
             <ListAttr>Notes:</ListAttr>
           </div>
-          <button onClick={() => setEditing(!editing)}>edit</button>
+          <EditBtn onClick={() => setEditing(!editing)}>edit</EditBtn>
         </NoteLi>
         <li>
           <NoteInput editing={editing} listItem={listItem} listId={listId} />

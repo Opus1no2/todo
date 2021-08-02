@@ -43,6 +43,7 @@ const ItemInput = styled(TextInput)`
 
 const ItemInputCont = styled.div`
   position: sticky;
+  display: flex;
   bottom: 0;
   width: inherit;
   padding-top: 1rem;
