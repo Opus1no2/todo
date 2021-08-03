@@ -94,7 +94,10 @@ const ItemInfo = (props) => {
               <div><ListAttr>due date:</ListAttr> {formatDate(dueDate) || 'none'}</div>
               <EditBtn onClick={() => setEditDueDate(!editDueDate)}>edit</EditBtn>
             </NoteLi>
-          : <ListVal><ListAttr>due date:</ListAttr> <DateInput type='date' onChange={(e) => handleDueDate(e.target.value)} /></ListVal>
+          : <ListVal>
+              <ListAttr>due date:</ListAttr>
+              <DateInput type='date' onChange={(e) => handleDueDate(e.target.value)} />
+            </ListVal>
         }
         <NoteLi>
           <div>
