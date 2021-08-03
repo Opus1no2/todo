@@ -73,7 +73,8 @@ const ItemInfo = (props) => {
 
   const formatDate = (date) => {
     if (!date) return
-    return new Date(date).toLocaleDateString()
+    const newDate = new Date(date)
+    return `${newDate.getUTCMonth()}/${newDate.getUTCDate()}/${newDate.getUTCFullYear()}`
   }
 
   const handleDueDate = (date) => {
