@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
+import { TodoListContext } from '../TodoListProvider'
 
 const ItemDisplay = styled.div`
   padding: .5rem;
@@ -55,12 +56,15 @@ const CompleteBtn = styled.button(
 
 const Item = (props) => {
   const {
-    item,
-    handleComplete,
-    setListItem,
-    showComplete,
-    handleDelete
+    item
   } = props
+
+  const {
+    handleComplete,
+    showComplete,
+    handleDelete,
+    setTodo
+  } = useContext(TodoListContext)
 
   const [description, setDescription] = useState(item.description)
 
@@ -79,20 +83,14 @@ const Item = (props) => {
           ></CompleteBtn>
         : null
       }
-      <ItemDisplay onClick={() => setListItem(item)}>{description}</ItemDisplay>
+      <ItemDisplay onClick={() => setTodo(item)}>{description}</ItemDisplay>
       <DeleteBtn onClick={() => handleDelete(item)}>&times;</DeleteBtn>
     </ListItem>
   )
 }
 
 Item.propTypes = {
-  item: PropTypes.any,
-  selected: PropTypes.bool,
-  setSelected: PropTypes.func,
-  handleComplete: PropTypes.func,
-  handleDelete: PropTypes.func,
-  setListItem: PropTypes.func,
-  showComplete: PropTypes.bool
+  item: PropTypes.any
 }
 
 export default Item

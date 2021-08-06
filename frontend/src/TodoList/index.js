@@ -1,38 +1,17 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import Item from './Item'
-import PropTypes from 'prop-types'
+import { TodoListContext } from '../TodoListProvider'
 
-const TodoList = (props) => {
-  const {
-    listItems,
-    handleComplete,
-    handleDelete,
-    setListItem,
-    showComplete
-  } = props
+const TodoList = () => {
+  const { todos } = useContext(TodoListContext)
 
   return (
     <>
-      {listItems.map((item, i) => {
-        return (<Item
-                  key={i}
-                  item={item}
-                  handleComplete={handleComplete}
-                  handleDelete={handleDelete}
-                  setListItem={setListItem}
-                  showComplete={showComplete}
-                />)
+      {todos.map((item, i) => {
+        return <Item key={i} item={item} />
       })}
     </>
   )
-}
-
-TodoList.propTypes = {
-  listItems: PropTypes.array,
-  handleComplete: PropTypes.func,
-  handleDelete: PropTypes.func,
-  setListItem: PropTypes.func,
-  showComplete: PropTypes.bool
 }
 
 export default TodoList

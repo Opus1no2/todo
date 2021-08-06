@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import styled from 'styled-components'
-import PropTypes from 'prop-types'
 import ListButton from './ListButton'
+import { TodoListsContext } from '../TodoListsProvider'
 
 const ListItem = styled.li`
   display: flex;
 `
-const TodoLists = (props) => {
-  const { setListId, todoLists } = props
+const TodoLists = () => {
+  const { setListId, todoLists } = useContext(TodoListsContext)
   const [selectedList, setSelectedList] = useState(null)
 
   useEffect(() => {
@@ -36,11 +36,6 @@ const TodoLists = (props) => {
       })}
     </>
   )
-}
-
-TodoLists.propTypes = {
-  setListId: PropTypes.func,
-  todoLists: PropTypes.array
 }
 
 export default TodoLists

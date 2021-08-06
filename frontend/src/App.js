@@ -13,6 +13,8 @@ import {
   Switch,
   Route
 } from 'react-router-dom'
+import TodoListsProvider from './TodoListsProvider'
+import TodoListProvider from './TodoListProvider'
 
 function App () {
   return (
@@ -24,7 +26,11 @@ function App () {
               <Login />
             </Route>
             <PrivateRoute>
-              <Dashboard />
+              <TodoListsProvider>
+                <TodoListProvider>
+                  <Dashboard />
+                </TodoListProvider>
+              </TodoListsProvider>
             </PrivateRoute>
           </Switch>
         </Router>

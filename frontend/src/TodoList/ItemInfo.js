@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react'
-import PropTypes from 'prop-types'
+import React, { useContext, useEffect, useState } from 'react'
 import styled from 'styled-components'
 import NoteInput from './NoteInput'
 import * as fromTodoList from '../api/todoList'
+import { TodoListContext } from '../TodoListProvider'
+import { TodoListsContext } from '../TodoListsProvider'
 
 const ItemCont = styled.div`
   display: flex;
@@ -61,15 +62,17 @@ const DateInput = styled.input(
   `
 )
 
-const ItemInfo = (props) => {
-  const { listItem, listId } = props
+const ItemInfo = () => {
+  const { todo } = useContext(TodoListContext)
+  const { listId } = useContext(TodoListsContext)
+
   const [editing, setEditing] = useState(false)
   const [editDueDate, setEditDueDate] = useState(false)
   const [dueDate, setDueDate] = useState()
 
   useEffect(() => {
-    setDueDate(listItem.due_date)
-  }, [listItem.due_date])
+    setDueDate(todo.due_date)
+  }, [todo])
 
   const formatDate = (date) => {
     if (!date) return
@@ -78,7 +81,7 @@ const ItemInfo = (props) => {
   }
 
   const handleDueDate = (date) => {
-    fromTodoList.updateListItem(listItem.id, listId, { due_date: date }).then((resp) => {
+    fromTodoList.updateListItem(todo.id, listId, { due_date: date }).then((resp) => {
       setDueDate(resp.data.due_date)
       setEditDueDate(false)
     })
@@ -87,8 +90,8 @@ const ItemInfo = (props) => {
   return (
     <ItemCont>
       <InfoList>
-        <ListVal><ListAttr>name:</ListAttr> {listItem.description}</ListVal>
-        <ListVal><ListAttr>created:</ListAttr> {formatDate(listItem.created_at)}</ListVal>
+        <ListVal><ListAttr>name:</ListAttr> {todo.description}</ListVal>
+        <ListVal><ListAttr>created:</ListAttr> {formatDate(todo.created_at)}</ListVal>
         {dueDate && !editDueDate
           ? <NoteLi>
               <div><ListAttr>due date:</ListAttr> {formatDate(dueDate) || 'none'}</div>
@@ -106,16 +109,11 @@ const ItemInfo = (props) => {
           <EditBtn onClick={() => setEditing(!editing)}>edit</EditBtn>
         </NoteLi>
         <li>
-          <NoteInput editing={editing} listItem={listItem} listId={listId} />
+          <NoteInput editing={editing} listItem={todo} listId={listId} />
         </li>
       </InfoList>
     </ItemCont>
   )
-}
-
-ItemInfo.propTypes = {
-  listId: PropTypes.number,
-  listItem: PropTypes.object
 }
 
 export default ItemInfo
