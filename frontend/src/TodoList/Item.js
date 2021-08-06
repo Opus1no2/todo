@@ -63,7 +63,7 @@ const Item = (props) => {
     handleComplete,
     showComplete,
     handleDelete,
-    setTodo
+    getTodo
   } = useContext(TodoListContext)
 
   const [description, setDescription] = useState(item.description)
@@ -83,7 +83,7 @@ const Item = (props) => {
           ></CompleteBtn>
         : null
       }
-      <ItemDisplay onClick={() => setTodo(item)}>{description}</ItemDisplay>
+      <ItemDisplay onClick={() => getTodo(item)}>{description}</ItemDisplay>
       <DeleteBtn onClick={() => handleDelete(item)}>&times;</DeleteBtn>
     </ListItem>
   )

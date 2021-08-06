@@ -1,11 +1,11 @@
 import React, { createContext, useState } from 'react'
 import useTodos from '../hooks/useTodos'
 import PropTypes from 'prop-types'
+import useTodo from '../hooks/useTodo'
 
 export const TodoListContext = createContext()
 
 const TodoListProvider = ({ children }) => {
-  const [todo, setTodo] = useState({})
   const [showComplete, setShowComplete] = useState(false)
 
   const {
@@ -14,6 +14,8 @@ const TodoListProvider = ({ children }) => {
     handleCreate,
     handleDelete
   } = useTodos()
+
+  const { todo, getTodo } = useTodo()
 
   return (
     <TodoListContext.Provider
@@ -25,7 +27,7 @@ const TodoListProvider = ({ children }) => {
         handleDelete,
         showComplete,
         setShowComplete,
-        setTodo
+        getTodo
       }}
     >
       {children}

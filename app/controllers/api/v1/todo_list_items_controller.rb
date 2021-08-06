@@ -9,6 +9,10 @@ module Api
         render json: @todo_list.todo_list_items.completed_last, status: :ok
       end
 
+      def show
+        render json: @todo_list.todo_list_items.find(permitted[:id])
+      end
+
       def update
         if todo_list_item.update(item_params)
           render json: todo_list_item, status: :ok

@@ -16,3 +16,7 @@ export function createListItem (listId, description) {
 export function destroyItem (listId, itemId) {
   return axios.delete(`/v1/todo_lists/${listId}/items/${itemId}`)
 }
+
+export function todo (listId, itemId) {
+  return axios.get(`/v1/todo_lists/${listId}/items/${itemId}`)
+}

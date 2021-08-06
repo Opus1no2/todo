@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import * as fromApi from '../api/todoList'
+import { TodoListsContext } from '../TodoListsProvider'
+import { TodoListContext } from '../TodoListProvider'
 
 const Cont = styled.div`
   display: flex;
@@ -33,7 +35,11 @@ const Btn = styled.button(
 )
 
 const NoteInput = (props) => {
-  const { editing, listItem, listId } = props
+  const { editing } = props
+
+  const { listId } = useContext(TodoListsContext)
+  const { todo } = useContext(TodoListContext)
+
   const [isEditing, setIsEditing] = useState(true)
   const [notes, setNotes] = useState('')
 
@@ -42,11 +48,11 @@ const NoteInput = (props) => {
   }, [editing])
 
   useEffect(() => {
-    setNotes(listItem.notes)
-  }, [listItem.notes])
+    setNotes(todo.notes || '')
+  }, [todo])
 
   const handleSave = () => {
-    fromApi.updateListItem(listItem.id, listId, { notes }).then((resp) => {
+    fromApi.updateListItem(todo.id, listId, { notes }).then((resp) => {
       setNotes(resp.data.notes)
       setIsEditing(!isEditing)
     })
@@ -67,8 +73,7 @@ const NoteInput = (props) => {
 
 NoteInput.propTypes = {
   editing: PropTypes.bool,
-  listItem: PropTypes.object,
-  listId: PropTypes.number
+  listItem: PropTypes.object
 }
 
 export default NoteInput
