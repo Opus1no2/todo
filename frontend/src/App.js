@@ -4,7 +4,7 @@ import './App.css'
 import Login from './pages/Login'
 import Dashboard from './pages/Dashboard'
 import PrivateRoute from './PrivateRoute'
-import ProvideAuth from './providers/ProvideAuth'
+import ProvideAuth from './ProvideAuth'
 import { ThemeProvider } from 'styled-components'
 import { theme } from './theme'
 
