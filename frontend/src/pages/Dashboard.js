@@ -1,12 +1,12 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import TodoLists from '../TodoLists'
 import Header from '../Header'
 import TodoList from '../TodoList'
-import TextInput from '../ui/TextInput'
 import ItemInfo from '../TodoList/ItemInfo'
-import { TodoListContext } from '../TodoListProvider'
-import { TodoListsContext } from '../TodoListsProvider'
+import NewListInput from '../NewListInput'
+import ShowCompleteFilter from '../ShowCompleteFilter'
+import NewTodoInput from '../NewTodoInput'
 
 const DashboardCont = styled.div`
   display: flex;
@@ -33,12 +33,6 @@ const ListCont = styled.div`
   flex: 1;
 `
 
-const ItemInput = styled(TextInput)`
-  border: solid 1px ${props => props.theme.borderBlue};
-  color: ${props => props.theme.fontWhite};
-  background: ${props => props.theme.darkBlue}
-`
-
 const ItemInputCont = styled.div`
   position: sticky;
   display: flex;
@@ -47,15 +41,6 @@ const ItemInputCont = styled.div`
   padding-top: 1rem;
   padding-bottom: 2rem;
   background: ${props => props.theme.mediumBlue};
-`
-
-const ListInput = styled(TextInput)`
-  color: white;
-  background: ${props => props.theme.darkBlue};
-  width: 100%;
-  padding: 1rem;
-  border: none;
-  border-bottom: solid 1px ${props => props.theme.borderBlue};
 `
 
 const ListNav = styled.nav`
@@ -69,36 +54,12 @@ const NavList = styled.ul`
   margin: 0;
 `
 
-const PillBtn = styled.button`
-  text-decoration: none;
-  padding: .3rem;
-  font-weight: 300;
-  background: ${props => props.showComplete ? props.theme.lightBlue : 'transparent'};
-  color: ${props => props.showComplete ? 'white' : props.theme.fontWhite};
-
-  border: solid 1px;
-  border-color: ${props => props.showComplete ? 'none' : '#d0d0d0'};
-  border-radius: 1rem;
-
-  &:hover {
-    cursor: pointer;
-    border-color: white;
-  }
-`
-
 const AlignRight = styled(Row)`
   justify-content: flex-end;
   margin-bottom: .5rem;
 `
 
 const Dashboard = () => {
-  const { createList } = useContext(TodoListsContext)
-  const {
-    handleCreate,
-    showComplete,
-    setShowComplete
-  } = useContext(TodoListContext)
-
   return (
     <DashboardCont>
       <Row>
@@ -108,23 +69,18 @@ const Dashboard = () => {
         <ListNav>
           <NavList>
             <TodoLists />
-            <ListInput onKeyPress={createList} placeholder="NEW LIST" />
+            <NewListInput />
           </NavList>
         </ListNav>
           <ListCont>
             <div>
               <AlignRight>
-                <PillBtn
-                  onClick={() => setShowComplete(!showComplete)}
-                  showComplete={showComplete}
-                >
-                  Show Complete
-                </PillBtn>
+                <ShowCompleteFilter />
               </AlignRight>
               <TodoList />
             </div>
             <ItemInputCont>
-              <ItemInput onKeyPress={handleCreate} placeholder="new item" />
+              <NewTodoInput />
             </ItemInputCont>
           </ListCont>
         <ItemInfo/>
