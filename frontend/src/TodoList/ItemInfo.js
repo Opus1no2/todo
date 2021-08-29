@@ -51,7 +51,7 @@ const EditBtn = styled.button(
 const DateInput = styled.input(
   ({ theme }) => `
     appearance: none;
-    border: solid 1px ${theme.borderBlue};
+    border: none;
     background: transparent;
     color: ${theme.fontWhite};
     padding-left: 5px;
@@ -61,6 +61,11 @@ const DateInput = styled.input(
     }
   `
 )
+
+const DueDateRow = styled.div`
+  display: flex;
+  justify-content: space-between;
+`
 
 const ItemInfo = () => {
   const { todo } = useContext(TodoListContext)
@@ -98,9 +103,11 @@ const ItemInfo = () => {
               <EditBtn onClick={() => setEditDueDate(!editDueDate)}>edit</EditBtn>
             </NoteLi>
           : <ListVal>
+            <DueDateRow>
               <ListAttr>due date:</ListAttr>
               <DateInput type='date' onChange={(e) => handleDueDate(e.target.value)} />
-            </ListVal>
+            </DueDateRow>
+          </ListVal>
         }
         <NoteLi>
           <div>
