@@ -1,11 +1,9 @@
-import { useState, useEffect, useContext } from 'react'
+import { useState, useEffect } from 'react'
 import * as fromApi from '../api/todoList'
-import { TodoListsContext } from '../TodoListsProvider'
 
 const useTodos = () => {
   const [todos, setTodos] = useState([])
-
-  const { listId } = useContext(TodoListsContext)
+  const [listId, setListId] = useState()
 
   useEffect(() => {
     if (!listId) return
@@ -23,6 +21,8 @@ const useTodos = () => {
         todos.unshift(resp.data)
         setTodos([...todos])
         e.target.value = null
+      }).catch((err) => {
+        console.log(err)
       })
     }
   }
@@ -48,7 +48,7 @@ const useTodos = () => {
     })
   }
 
-  return { todos, handleCreate, handleComplete, handleDelete }
+  return { todos, setTodos, handleCreate, handleComplete, handleDelete, setListId }
 }
 
 export default useTodos

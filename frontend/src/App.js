@@ -25,7 +25,7 @@ function App () {
             <Route exact path="/">
               <Login />
             </Route>
-            <PrivateRoute>
+            <PrivateRoute path="/dashboard">
               <TodoListsProvider>
                 <TodoListProvider>
                   <Dashboard />

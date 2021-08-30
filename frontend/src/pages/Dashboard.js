@@ -7,6 +7,7 @@ import ItemInfo from '../TodoList/ItemInfo'
 import NewListInput from '../NewListInput'
 import ShowCompleteFilter from '../ShowCompleteFilter'
 import NewTodoInput from '../NewTodoInput'
+import { Switch, Route, useRouteMatch } from 'react-router-dom'
 
 const DashboardCont = styled.div`
   display: flex;
@@ -60,6 +61,8 @@ const AlignRight = styled(Row)`
 `
 
 const Dashboard = () => {
+  const { path } = useRouteMatch()
+
   return (
     <DashboardCont>
       <Row>
@@ -73,15 +76,19 @@ const Dashboard = () => {
           </NavList>
         </ListNav>
           <ListCont>
-            <div>
-              <AlignRight>
-                <ShowCompleteFilter />
-              </AlignRight>
-              <TodoList />
-            </div>
-            <ItemInputCont>
-              <NewTodoInput />
-            </ItemInputCont>
+            <Switch>
+              <Route path={`${path}/list/:listId`}>
+                <div>
+                  <AlignRight>
+                    <ShowCompleteFilter />
+                  </AlignRight>
+                  <TodoList />
+                </div>
+                <ItemInputCont>
+                  <NewTodoInput />
+                </ItemInputCont>
+              </Route>
+            </Switch>
           </ListCont>
         <ItemInfo/>
       </Cont>

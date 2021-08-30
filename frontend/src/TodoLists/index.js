@@ -38,7 +38,7 @@ const ListItem = styled.li`
   }
 `
 const TodoLists = () => {
-  const { setListId, todoLists } = useContext(TodoListsContext)
+  const { todoLists } = useContext(TodoListsContext)
   const [selectedList, setSelectedList] = useState({})
 
   useEffect(() => {
@@ -56,7 +56,6 @@ const TodoLists = () => {
             selectedList={selectedList.id === list.id}
           >
             <ListButton
-              setListId={setListId}
               list={list}
             />
             <EditBtn>edit</EditBtn>

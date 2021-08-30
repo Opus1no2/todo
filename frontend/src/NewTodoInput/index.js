@@ -10,9 +10,7 @@ const ItemInput = styled(TextInput)`
 `
 
 const NewTodoInput = () => {
-  const {
-    handleCreate
-  } = useContext(TodoListContext)
+  const { handleCreate } = useContext(TodoListContext)
 
   return <ItemInput onKeyPress={handleCreate} placeholder="new item" />
 }

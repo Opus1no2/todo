@@ -3,19 +3,12 @@ import * as fromApi from '../api/todoLists'
 
 const useTodoLists = () => {
   const [todoLists, setTodoLists] = useState([])
-  const [listId, setListId] = useState()
 
   useEffect(() => {
     fromApi.todoLists().then((resp) => {
       setTodoLists(resp.data)
     })
   }, [])
-
-  useEffect(() => {
-    if (!todoLists.length) return
-
-    setListId(todoLists[0].id)
-  }, [todoLists])
 
   const createList = (e) => {
     if (!e.target.value) return
@@ -28,7 +21,7 @@ const useTodoLists = () => {
     }
   }
 
-  return { todoLists, createList, listId, setListId }
+  return { todoLists, createList }
 }
 
 export default useTodoLists

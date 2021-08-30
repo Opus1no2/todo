@@ -1,8 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
+import { Link, useRouteMatch } from 'react-router-dom'
 
-const ListBtn = styled.button`
+const ListBtn = styled(Link)`
   appearance: none;
   background: transparent;
   display: flex;
@@ -20,18 +21,15 @@ const ListBtn = styled.button`
 const ListButton = (props) => {
   const {
     list,
-    selectedList,
-    setListId
+    selectedList
   } = props
 
-  const handleClick = () => {
-    setListId(list.id)
-  }
+  const { url } = useRouteMatch()
 
   return (
     <ListBtn
       selected={selectedList}
-      onClick={handleClick}
+      to={`${url}/list/${list.id}`}
     >
       {list.description}
     </ListBtn>
@@ -40,8 +38,7 @@ const ListButton = (props) => {
 
 ListButton.propTypes = {
   list: PropTypes.object,
-  selectedList: PropTypes.bool,
-  setListId: PropTypes.func
+  selectedList: PropTypes.bool
 }
 
 export default ListButton

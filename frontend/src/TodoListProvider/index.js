@@ -12,7 +12,8 @@ const TodoListProvider = ({ children }) => {
     todos,
     handleComplete,
     handleCreate,
-    handleDelete
+    handleDelete,
+    setListId
   } = useTodos()
 
   const { todo, getTodo } = useTodo()
@@ -27,7 +28,8 @@ const TodoListProvider = ({ children }) => {
         handleDelete,
         showComplete,
         setShowComplete,
-        getTodo
+        getTodo,
+        setListId
       }}
     >
       {children}
