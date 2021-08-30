@@ -64,35 +64,35 @@ const Dashboard = () => {
   const { path } = useRouteMatch()
 
   return (
-    <DashboardCont>
-      <Row>
-        <Header />
-      </Row>
-      <Cont>
-        <ListNav>
-          <NavList>
-            <TodoLists />
-            <NewListInput />
-          </NavList>
-        </ListNav>
-          <ListCont>
-            <Switch>
-              <Route path={`${path}/list/:listId`}>
-                <div>
-                  <AlignRight>
-                    <ShowCompleteFilter />
-                  </AlignRight>
-                  <TodoList />
-                </div>
-                <ItemInputCont>
-                  <NewTodoInput />
-                </ItemInputCont>
-              </Route>
-            </Switch>
-          </ListCont>
-        <ItemInfo/>
-      </Cont>
-    </DashboardCont>
+    <Switch>
+      <Route path={`${path}/list/:listId`}>
+        <DashboardCont>
+          <Row>
+            <Header />
+          </Row>
+          <Cont>
+            <ListNav>
+              <NavList>
+                <TodoLists />
+                <NewListInput />
+              </NavList>
+            </ListNav>
+            <ListCont>
+              <div>
+                <AlignRight>
+                  <ShowCompleteFilter />
+                </AlignRight>
+                <TodoList />
+              </div>
+              <ItemInputCont>
+                <NewTodoInput />
+              </ItemInputCont>
+            </ListCont>
+            <ItemInfo />
+          </Cont>
+        </DashboardCont>
+      </Route>
+    </Switch>
   )
 }
 

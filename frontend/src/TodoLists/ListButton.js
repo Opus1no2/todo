@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import { Link, useRouteMatch } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 const ListBtn = styled(Link)`
   appearance: none;
@@ -24,12 +24,10 @@ const ListButton = (props) => {
     selectedList
   } = props
 
-  const { url } = useRouteMatch()
-
   return (
     <ListBtn
       selected={selectedList}
-      to={`${url}/list/${list.id}`}
+      to={`/dashboard/list/${list.id}`}
     >
       {list.description}
     </ListBtn>

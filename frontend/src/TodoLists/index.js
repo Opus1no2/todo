@@ -1,7 +1,8 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext } from 'react'
 import styled from 'styled-components'
 import ListButton from './ListButton'
 import { TodoListsContext } from '../TodoListsProvider'
+import { useParams } from 'react-router'
 
 const EditBtn = styled.button`
   appearance: none;
@@ -38,22 +39,15 @@ const ListItem = styled.li`
   }
 `
 const TodoLists = () => {
+  const { listId } = useParams()
   const { todoLists } = useContext(TodoListsContext)
-  const [selectedList, setSelectedList] = useState({})
-
-  useEffect(() => {
-    if (!todoLists.length) return
-
-    setSelectedList(todoLists[0])
-  }, [setSelectedList, todoLists])
 
   return (
     <>
       {todoLists.map((list, i) => {
         return (
           <ListItem key={i}
-            onClick={() => setSelectedList(list)}
-            selectedList={selectedList.id === list.id}
+            selectedList={list.id === Number(listId)}
           >
             <ListButton
               list={list}
