@@ -1,7 +1,8 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import Item from './Item'
 import { TodoListContext } from '../TodoListProvider'
 import styled from 'styled-components'
+import { useParams } from 'react-router'
 
 const EmptyState = styled.div`
   color: white;
@@ -12,7 +13,12 @@ const listComplete = (todos) => {
 }
 
 const TodoList = () => {
-  const { todos } = useContext(TodoListContext)
+  const { listId } = useParams()
+  const { todos, setListId } = useContext(TodoListContext)
+
+  useEffect(() => {
+    setListId(listId)
+  }, [listId, setListId])
 
   if (listComplete(todos)) {
     return <EmptyState>List complete! Create a new todo!</EmptyState>
