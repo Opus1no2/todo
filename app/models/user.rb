@@ -3,7 +3,7 @@
 class User < ApplicationRecord
   extend Devise::Models
 
-  DEFAULT_LIST_NAME = "Daily"
+  DEFAULT_LIST_NAME = 'Daily'
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
