@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
 import styled from 'styled-components'
 import TodoLists from '../TodoLists'
 import Header from '../Header'
@@ -7,7 +7,8 @@ import ItemInfo from '../TodoList/ItemInfo'
 import NewListInput from '../NewListInput'
 import ShowCompleteFilter from '../ShowCompleteFilter'
 import NewTodoInput from '../NewTodoInput'
-import { Switch, Route, useRouteMatch } from 'react-router-dom'
+import { Switch, Route, useRouteMatch, useHistory } from 'react-router-dom'
+import { TodoListsContext } from '../TodoListsProvider'
 
 const DashboardCont = styled.div`
   display: flex;
@@ -60,11 +61,28 @@ const AlignRight = styled(Row)`
   margin-bottom: .5rem;
 `
 
+const PostLoginRedirect = () => {
+  const history = useHistory()
+  const { path } = useRouteMatch()
+  const { todoLists } = useContext(TodoListsContext)
+
+  useEffect(() => {
+    if (todoLists.length) {
+      history.push(`${path}/list/${todoLists[0].id}`)
+    }
+  }, [todoLists, history, path])
+
+  return null
+}
+
 const Dashboard = () => {
   const { path } = useRouteMatch()
 
   return (
     <Switch>
+      <Route exact path={path}>
+        <PostLoginRedirect />
+      </Route>
       <Route path={`${path}/list/:listId`}>
         <DashboardCont>
           <Row>

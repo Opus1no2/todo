@@ -41,7 +41,7 @@ const Header = () => {
 
   const logout = () => {
     token.unset()
-    history.push('/login')
+    history.push('/')
   }
 
   return (
