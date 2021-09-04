@@ -14,18 +14,29 @@ const listComplete = (todos) => {
 
 const TodoList = () => {
   const { listId } = useParams()
-  const { todos, setListId } = useContext(TodoListContext)
+  const {
+    todos,
+    setListId,
+    showComplete,
+    setShowComplete
+  } = useContext(TodoListContext)
+
+  const complete = listComplete(todos)
 
   useEffect(() => {
     setListId(listId)
   }, [listId, setListId])
 
-  if (listComplete(todos)) {
-    return <EmptyState>List complete! Create a new todo!</EmptyState>
-  }
+  useEffect(() => {
+    if (complete) setShowComplete(true)
+  }, [complete, setShowComplete])
 
   if (todos.length === 0) {
     return <EmptyState>Create a new Todo...</EmptyState>
+  }
+
+  if (complete && !showComplete) {
+    return <EmptyState>List complete! Create some new todos...</EmptyState>
   }
 
   return (
