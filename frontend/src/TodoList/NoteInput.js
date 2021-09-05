@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
+import { useParams } from 'react-router-dom'
 import * as fromApi from '../api/todoList'
-import { TodoListsContext } from '../TodoListsProvider'
 import { TodoListContext } from '../TodoListProvider'
 
 const Cont = styled.div`
@@ -37,7 +37,7 @@ const Btn = styled.button(
 const NoteInput = (props) => {
   const { editing } = props
 
-  const { listId } = useContext(TodoListsContext)
+  const { listId } = useParams()
   const { todo } = useContext(TodoListContext)
 
   const [isEditing, setIsEditing] = useState(true)
