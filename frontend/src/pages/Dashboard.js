@@ -10,20 +10,18 @@ import NewTodoInput from '../NewTodoInput'
 import { Switch, Route, useRouteMatch, useHistory } from 'react-router-dom'
 import { TodoListsContext } from '../TodoListsProvider'
 
-const DashboardCont = styled.div`
+const Column = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: stretch;
-  height: 100vh;
 `
 
-const Cont = styled.div`
-  display: flex;
-  flex: 1;
+const DashboardCont = styled(Column)`
+  height: 100vh;
 `
 
 const Row = styled.div`
   display: flex;
+  flex: 1;
 `
 
 const ListCont = styled.div`
@@ -45,15 +43,15 @@ const ItemInputCont = styled.div`
   background: ${props => props.theme.mediumBlue};
 `
 
-const ListNav = styled.nav`
+const ListsNav = styled.nav`
   width: 250px;
   background: ${props => props.theme.darkBlue};
-`
 
-const NavList = styled.ul`
-  list-style: none;
-  padding: 0;
-  margin: 0;
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
 `
 
 const AlignRight = styled(Row)`
@@ -85,29 +83,25 @@ const Dashboard = () => {
       </Route>
       <Route path={`${path}/list/:listId`}>
         <DashboardCont>
+          <Header />
           <Row>
-            <Header />
-          </Row>
-          <Cont>
-            <ListNav>
-              <NavList>
-                <TodoLists />
-                <NewListInput />
-              </NavList>
-            </ListNav>
+            <ListsNav>
+              <TodoLists />
+              <NewListInput />
+            </ListsNav>
             <ListCont>
-              <div>
+              <Column>
                 <AlignRight>
                   <ShowCompleteFilter />
                 </AlignRight>
                 <TodoList />
-              </div>
+              </Column>
               <ItemInputCont>
                 <NewTodoInput />
               </ItemInputCont>
             </ListCont>
             <ItemInfo />
-          </Cont>
+          </Row>
         </DashboardCont>
       </Route>
     </Switch>

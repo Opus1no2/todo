@@ -9,7 +9,6 @@ const NavBar = styled.nav`
   background: ${props => props.theme.lightBlue};
   align-items: center;
   padding: 1rem;
-  flex: 1;
 `
 
 const Ul = styled.ul`
