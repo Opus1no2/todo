@@ -3,6 +3,8 @@ import { useHistory } from 'react-router'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import useToken from '../hooks/useToken'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBars } from '@fortawesome/free-solid-svg-icons'
 
 const NavBar = styled.nav`
   display: flex;
@@ -44,10 +46,7 @@ const MenuLink = styled(Link)`
   display: flex;
   text-decoration: none;
   color: ${props => props.theme.fontWhite};
-  border: solid 1px white;
   background: ${props => props.theme.lightBlue};
-  padding: .2rem;
-  text-transform: uppercase;
 
   @media(min-width: 1024px) {
     display: none;
@@ -67,7 +66,7 @@ const Header = () => {
     <NavBar>
       <Ul>
         <li><LogoutBtn onClick={logout}>Log out</LogoutBtn></li>
-        <li><MenuLink to="/menu">Menu</MenuLink></li>
+        <li><MenuLink to="/menu"><FontAwesomeIcon icon={faBars} /></MenuLink></li>
       </Ul>
     </NavBar>
   )

@@ -4,6 +4,8 @@ import NoteInput from './NoteInput'
 import * as fromTodoList from '../api/todoList'
 import { TodoListContext } from '../TodoListProvider'
 import { TodoListsContext } from '../TodoListsProvider'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faEdit } from '@fortawesome/free-solid-svg-icons'
 
 const ItemCont = styled.div`
   display: none;
@@ -39,19 +41,16 @@ const NoteLi = styled(ListVal)`
   justify-content: space-between;
 `
 
-const EditBtn = styled.button(
-  ({ theme }) => `
-    appearance: none;
-    border: 0;
-    background: ${theme.darkBlue};
-    color: ${theme.fontEdit};
-    text-decoration: underline;
+const EditBtn = styled(FontAwesomeIcon)`
+  appearance: none;
+  background: ${props => props.theme.darkBlue};
+  color: ${props => props.theme.fontEdit};
+  text-decoration: none;
 
-    &:hover {
-      cursor: pointer;
-    }
-  `
-)
+  &:hover {
+    cursor: pointer;
+  }
+`
 
 const DateInput = styled.input(
   ({ theme }) => `
@@ -118,7 +117,7 @@ const ItemInfo = () => {
           <div>
             <ListAttr>Notes:</ListAttr>
           </div>
-          <EditBtn onClick={() => setEditing(!editing)}>edit</EditBtn>
+          <EditBtn icon={faEdit} onClick={() => setEditing(!editing)}>edit</EditBtn>
         </NoteLi>
         <li>
           <NoteInput editing={editing} listItem={todo} listId={listId} />

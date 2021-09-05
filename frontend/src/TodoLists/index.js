@@ -4,19 +4,6 @@ import ListButton from './ListButton'
 import { TodoListsContext } from '../TodoListsProvider'
 import { useParams } from 'react-router'
 
-const EditBtn = styled.button`
-  appearance: none;
-  display: ${props => props.showEdit ? 'flex' : 'none'};
-  border: 0;
-  background: ${props => props.theme.mediumBlue};
-  color: ${props => props.theme.fontEdit};
-  text-decoration: underline;
-
-  &:hover {
-    cursor: pointer;
-  }
-`
-
 const ListItem = styled.li`
   display: flex;
   align-items: center;
@@ -32,10 +19,6 @@ const ListItem = styled.li`
     cursor: pointer;
     background: ${props => props.theme.mediumBlue};
     border-left: solid 2px white;
-
-    ${EditBtn} {
-      display: flex;
-    }
   }
 `
 const TodoLists = () => {
@@ -46,13 +29,8 @@ const TodoLists = () => {
     <>
       {todoLists.map((list, i) => {
         return (
-          <ListItem key={i}
-            selectedList={list.id === Number(listId)}
-          >
-            <ListButton
-              list={list}
-            />
-            <EditBtn>edit</EditBtn>
+          <ListItem key={i} selectedList={list.id === Number(listId)}>
+            <ListButton list={list} />
           </ListItem>
         )
       })}
