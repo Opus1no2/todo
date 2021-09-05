@@ -6,12 +6,16 @@ import { TodoListContext } from '../TodoListProvider'
 import { TodoListsContext } from '../TodoListsProvider'
 
 const ItemCont = styled.div`
-  display: flex;
+  display: none;
   flex-direction: column;
   width: 18rem;
   background: ${props => props.theme.darkBlue};
   padding: 1rem;
   color: ${props => props.theme.fontWhite};
+
+  @media(min-width: 1024px) {
+    display: flex;
+  }
 `
 
 const InfoList = styled.ul`
@@ -48,6 +52,7 @@ const EditBtn = styled.button(
     }
   `
 )
+
 const DateInput = styled.input(
   ({ theme }) => `
     appearance: none;

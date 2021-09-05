@@ -15,6 +15,7 @@ import {
 } from 'react-router-dom'
 import TodoListsProvider from './TodoListsProvider'
 import TodoListProvider from './TodoListProvider'
+import MobileMenu from './MobileMenu'
 
 function App () {
   return (
@@ -30,6 +31,11 @@ function App () {
                 <TodoListProvider>
                   <Dashboard />
                 </TodoListProvider>
+              </TodoListsProvider>
+            </PrivateRoute>
+            <PrivateRoute path="/menu">
+              <TodoListsProvider>
+                <MobileMenu />
               </TodoListsProvider>
             </PrivateRoute>
           </Switch>

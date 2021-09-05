@@ -44,6 +44,7 @@ const ItemInputCont = styled.div`
 `
 
 const ListsNav = styled.nav`
+  display: none;
   width: 250px;
   background: ${props => props.theme.darkBlue};
 
@@ -51,6 +52,10 @@ const ListsNav = styled.nav`
     list-style: none;
     padding: 0;
     margin: 0;
+  }
+
+  @media(min-width: 1024px) {
+    display: block;
   }
 `
 
