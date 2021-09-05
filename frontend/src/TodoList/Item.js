@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import { TodoListContext } from '../TodoListProvider'
+import { useParams } from 'react-router-dom'
 
 const ItemDisplay = styled.div`
   padding: .5rem;
@@ -55,9 +56,8 @@ const CompleteBtn = styled.button(
 )
 
 const Item = (props) => {
-  const {
-    item
-  } = props
+  const { item } = props
+  const { listId } = useParams()
 
   const {
     handleComplete,
@@ -83,7 +83,7 @@ const Item = (props) => {
           ></CompleteBtn>
         : null
       }
-      <ItemDisplay onClick={() => getTodo(item)}>{description}</ItemDisplay>
+      <ItemDisplay onClick={() => getTodo(listId, item.id)}>{description}</ItemDisplay>
       <DeleteBtn onClick={() => handleDelete(item)}>&times;</DeleteBtn>
     </ListItem>
   )
