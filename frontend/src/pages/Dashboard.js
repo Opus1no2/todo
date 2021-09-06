@@ -9,13 +9,14 @@ import ShowCompleteFilter from '../ShowCompleteFilter'
 import NewTodoInput from '../NewTodoInput'
 import { Switch, Route, useRouteMatch, useHistory } from 'react-router-dom'
 import { TodoListsContext } from '../TodoListsProvider'
+import Calendar from './Calendar'
 
 const Column = styled.div`
   display: flex;
   flex-direction: column;
 `
 
-const DashboardCont = styled(Column)`
+const Container = styled(Column)`
   height: 100vh;
 `
 
@@ -87,7 +88,7 @@ const Dashboard = () => {
         <PostLoginRedirect />
       </Route>
       <Route path={`${path}/list/:listId`}>
-        <DashboardCont>
+        <Container>
           <Header />
           <Row>
             <ListsNav>
@@ -107,7 +108,13 @@ const Dashboard = () => {
             </ListCont>
             <ItemInfo />
           </Row>
-        </DashboardCont>
+        </Container>
+      </Route>
+      <Route path={`${path}/calendar`}>
+        <Container>
+          <Header />
+          <Calendar />
+        </Container>
       </Route>
     </Switch>
   )
