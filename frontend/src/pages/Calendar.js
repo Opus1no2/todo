@@ -20,7 +20,13 @@ const Row = styled.div`
 `
 
 const Cell = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: ${props => props.theme.fontWhite};
   flex: 1 1 0%;
+  padding: .5rem;
+  background: ${props => props.inMonth ? '#002a33' : props.theme.mediumBlue};
   border-right: solid 1px ${props => props.theme.borderBlue};
 `
 
@@ -34,19 +40,64 @@ const DayHeader = styled.div`
 
 const DayCell = styled(Cell)`
   display: flex;
+  background: #002a33;
   justify-content: center;
   align-items: center;
 `
 
 const days = ['sun', 'mon', 'tues', 'wed', 'thurs', 'fri', 'sat']
 
+const daysInMonth = (year, month) => {
+  return new Date(year, month, 0).getDate()
+}
+
 const Calendar = () => {
   const grid = []
-  const row = Array(7).fill(null)
   const rows = 5
+  const daysInWeek = 7
+  const date = new Date(Date.now())
+  const cellCount = Array(daysInWeek * rows).fill(null)
 
-  for (let i = 0; i < rows; i++) {
-    grid.push([...row])
+  // 31
+  const daysInThisMonth = daysInMonth(date.getFullYear(), date.getMonth() + 1)
+  // 31
+  const daysInPrevMonth = daysInMonth(date.getFullYear(), date.getMonth())
+
+  // spaces in the grid that need to be filled with prev/next month values
+  const remainderDays = cellCount.length - daysInThisMonth
+
+  // days to show from previous month
+  const previousMonthDays = Math.ceil(remainderDays / 2)
+
+  // ex: 29, 30, 31
+  const lastMonthDays = daysInPrevMonth - previousMonthDays
+
+  // ex: [29, 30, 31]
+  const lastMonthDaysRay = []
+  for (let i = lastMonthDays; i < daysInPrevMonth; i++) {
+    lastMonthDaysRay.push({ day: i, current: false })
+  }
+
+  // ex: [1, 2, 3, 4,...,31]
+  const daysInThisMonthRay = []
+  for (let i = 0; i < daysInThisMonth; i++) {
+    daysInThisMonthRay.push({ day: i + 1, current: true })
+  }
+
+  // days to show for next month
+  const nextMonthDays = remainderDays - previousMonthDays
+
+  // ex: [1, 2]
+  const nextMonthDaysRay = []
+  for (let i = 0; i < nextMonthDays; i++) {
+    nextMonthDaysRay.push({ day: i + 1, current: false })
+  }
+
+  const allDaysRay = [...lastMonthDaysRay, ...daysInThisMonthRay, ...nextMonthDaysRay]
+
+  let i, j
+  for (i = 0, j = allDaysRay.length; i < j; i += daysInWeek) {
+    grid.push(allDaysRay.slice(i, i + daysInWeek))
   }
 
   return (
@@ -60,7 +111,7 @@ const Calendar = () => {
       return (
         <Row key={i}>
           {row.map((cell, j) => {
-            return <Cell key={j}>{cell}</Cell>
+            return <Cell key={j} inMonth={cell.current}>{cell.day}</Cell>
           })}
         </Row>
       )
