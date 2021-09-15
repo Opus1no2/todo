@@ -90,7 +90,7 @@ const ItemInfo = () => {
   }
 
   const handleDueDate = (date) => {
-    fromTodoList.updateListItem(todo.id, listId, { due_date: date }).then((resp) => {
+    fromTodoList.updateListItem(listId, todo.id, { due_date: date }).then((resp) => {
       setDueDate(resp.data.due_date)
       setEditDueDate(false)
     })

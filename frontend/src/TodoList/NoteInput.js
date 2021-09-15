@@ -52,7 +52,7 @@ const NoteInput = (props) => {
   }, [todo])
 
   const handleSave = () => {
-    fromApi.updateListItem(todo.id, listId, { notes }).then((resp) => {
+    fromApi.updateListItem(listId, todo.id, { notes }).then((resp) => {
       setNotes(resp.data.notes)
       setIsEditing(!isEditing)
     })

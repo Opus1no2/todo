@@ -31,7 +31,7 @@ const useTodos = () => {
     const itemId = item.id
     const data = { completed_at: Date() }
 
-    fromApi.updateListItem(itemId, listId, data).then((resp) => {
+    fromApi.updateListItem(listId, itemId, data).then((resp) => {
       const newList = todos.filter((item) => {
         return item.id !== resp.data.id
       })

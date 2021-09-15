@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import { TodoListContext } from '../TodoListProvider'
@@ -52,36 +52,69 @@ const TrashIcon = styled(FontAwesomeIcon)`
   margin-right: .5rem;
 `
 
+const ItemInput = styled.input`
+  appearance: none;
+  border: none;
+  width: 100%;
+  font-size: inherit;
+  background: transparent;
+  color: white;
+
+  &:focus {
+    outline: none;
+  }
+`
+
 const Item = (props) => {
   const { item } = props
   const { listId } = useParams()
+  const [editable, setEditable] = useState(false)
+
+  const inputEl = useRef(null)
 
   const {
     handleComplete,
     showComplete,
     handleDelete,
-    getTodo
+    updateTodo,
+    getTodo,
+    todo
   } = useContext(TodoListContext)
 
-  const [description, setDescription] = useState(item.description)
+  const updateItem = (e) => {
+    if (e.key === 'Enter') {
+      updateTodo(listId, item.id, inputEl.current.value)
+      inputEl.current.blur()
+    }
+  }
 
   useEffect(() => {
-    setDescription(item.description)
-  }, [item.description, setDescription])
+    if (editable) inputEl.current.focus()
+  }, [editable])
 
   if (!showComplete && item.completed_at) return null
 
   return (
-    <ListItem completed={item.completed_at}>
-      { !item.completed_at
+    <ListItem
+      completed={todo.completed_at}
+      onDoubleClick={() => setEditable(!editable)}
+      onBlur={() => setEditable(false)}
+      onKeyDown={updateItem}
+    >
+      { !todo.completed_at
         ? <CompleteBtn
             type="radio"
-            onClick={() => handleComplete(item)}
+            onClick={() => handleComplete(todo)}
           ></CompleteBtn>
         : null
       }
-      <ItemDisplay onClick={() => getTodo(listId, item.id)}>{description}</ItemDisplay>
-      <TrashIcon icon={faTrashAlt} onClick={() => handleDelete(item)} />
+
+      {editable
+        ? <ItemInput ref={inputEl} placeholder={todo.description} />
+        : <ItemDisplay onClick={() => getTodo(listId, todo.id)}>{todo.description}</ItemDisplay>
+      }
+
+      <TrashIcon icon={faTrashAlt} onClick={() => handleDelete(todo)} />
     </ListItem>
   )
 }

@@ -16,7 +16,7 @@ const TodoListProvider = ({ children }) => {
     setListId
   } = useTodos()
 
-  const { todo, getTodo } = useTodo()
+  const { todo, getTodo, updateTodo } = useTodo()
 
   return (
     <TodoListContext.Provider
@@ -29,6 +29,7 @@ const TodoListProvider = ({ children }) => {
         showComplete,
         setShowComplete,
         getTodo,
+        updateTodo,
         setListId
       }}
     >
