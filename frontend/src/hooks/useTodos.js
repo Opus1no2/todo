@@ -27,15 +27,14 @@ const useTodos = () => {
     }
   }
 
-  const handleComplete = (item) => {
+  const handleUpdate = (item, data) => {
     const itemId = item.id
-    const data = { completed_at: Date() }
 
     fromApi.updateListItem(listId, itemId, data).then((resp) => {
-      const newList = todos.filter((item) => {
-        return item.id !== resp.data.id
+      const newList = todos.map((item) => {
+        return item.id === resp.data.id ? resp.data : item
       })
-      setTodos(newList.concat(resp.data))
+      setTodos(newList)
     })
   }
 
@@ -48,7 +47,7 @@ const useTodos = () => {
     })
   }
 
-  return { todos, setTodos, handleCreate, handleComplete, handleDelete, setListId }
+  return { todos, setTodos, handleCreate, handleUpdate, handleDelete, setListId }
 }
 
 export default useTodos

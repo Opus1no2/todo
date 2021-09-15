@@ -73,19 +73,21 @@ const Item = (props) => {
   const inputEl = useRef(null)
 
   const {
-    handleComplete,
+    handleUpdate,
     showComplete,
     handleDelete,
-    updateTodo,
-    getTodo,
-    todo
+    getTodo
   } = useContext(TodoListContext)
 
   const updateItem = (e) => {
     if (e.key === 'Enter') {
-      updateTodo(listId, item.id, inputEl.current.value)
+      handleUpdate(item, { description: inputEl.current.value })
       inputEl.current.blur()
     }
+  }
+
+  const handleComplete = (item) => {
+    handleUpdate(item, { completed_at: Date() })
   }
 
   useEffect(() => {
@@ -96,25 +98,25 @@ const Item = (props) => {
 
   return (
     <ListItem
-      completed={todo.completed_at}
+      completed={item.completed_at}
       onDoubleClick={() => setEditable(!editable)}
       onBlur={() => setEditable(false)}
       onKeyDown={updateItem}
     >
-      { !todo.completed_at
+      { !item.completed_at
         ? <CompleteBtn
             type="radio"
-            onClick={() => handleComplete(todo)}
+            onClick={() => handleComplete(item)}
           ></CompleteBtn>
         : null
       }
 
       {editable
-        ? <ItemInput ref={inputEl} placeholder={todo.description} />
-        : <ItemDisplay onClick={() => getTodo(listId, todo.id)}>{todo.description}</ItemDisplay>
+        ? <ItemInput ref={inputEl} placeholder={item.description} />
+        : <ItemDisplay onClick={() => getTodo(listId, item.id)}>{item.description}</ItemDisplay>
       }
 
-      <TrashIcon icon={faTrashAlt} onClick={() => handleDelete(todo)} />
+      <TrashIcon icon={faTrashAlt} onClick={() => handleDelete(item)} />
     </ListItem>
   )
 }

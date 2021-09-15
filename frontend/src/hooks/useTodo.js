@@ -10,13 +10,7 @@ const useTodo = () => {
     })
   }
 
-  const updateTodo = (listId, itemId, description) => {
-    fromApi.updateListItem(listId, itemId, { description }).then((resp) => {
-      setTodo(resp.data)
-    })
-  }
-
-  return { todo, getTodo, updateTodo }
+  return { todo, getTodo }
 }
 
 export default useTodo

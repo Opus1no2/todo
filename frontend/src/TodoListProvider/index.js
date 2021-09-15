@@ -10,26 +10,25 @@ const TodoListProvider = ({ children }) => {
 
   const {
     todos,
-    handleComplete,
+    handleUpdate,
     handleCreate,
     handleDelete,
     setListId
   } = useTodos()
 
-  const { todo, getTodo, updateTodo } = useTodo()
+  const { todo, getTodo } = useTodo()
 
   return (
     <TodoListContext.Provider
       value={{
         todo,
         todos,
-        handleComplete,
+        handleUpdate,
         handleCreate,
         handleDelete,
         showComplete,
         setShowComplete,
         getTodo,
-        updateTodo,
         setListId
       }}
     >
