@@ -1,13 +1,13 @@
 import axios from 'axios'
 import useToken from '../hooks/useToken'
 
+let uid = null
 let client = null
 let accessToken = null
-let uid = null
 let endpoint = 'http://127.0.0.1:5000/'
 
 if (process.env.NODE_ENV === 'production') {
-  endpoint = 'http://todo-prod-blue.eba-n2wwiv67.us-west-2.elasticbeanstalk.com/'
+  endpoint = 'https://api.dashymcdashboard.com/'
 }
 
 axios.defaults.baseURL = endpoint
