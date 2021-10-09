@@ -2,17 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEdit } from '@fortawesome/free-solid-svg-icons'
 
-const EditBtn = styled(FontAwesomeIcon)`
-  background: ${props => props.theme.mediumBlue};
-  color: ${props => props.theme.fontEdit};
-
-  &:hover {
-    cursor: pointer;
-  }
-`
 const ListBtn = styled(Link)`
   appearance: none;
   background: transparent;
@@ -35,17 +25,12 @@ const ListButton = (props) => {
     selectedList
   } = props
 
-  const editList = () => {
-    console.log('edit')
-  }
-
   return (
     <ListBtn
       selected={selectedList}
       to={`/dashboard/list/${list.id}`}
     >
       {list.description}
-      <EditBtn icon={faEdit} onClick={editList}/>
     </ListBtn>
   )
 }
