@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+echo "==== running build ===="
+yarn run build
+
+echo "==== sync to s3 ===="
+aws s3 sync build/ s3://tt-todo-prod --delete --acl public-read
+
+echo "==== invalidate cache ===="
+aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_ID --paths "/index.html"
