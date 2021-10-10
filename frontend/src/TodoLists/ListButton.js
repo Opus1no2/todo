@@ -21,10 +21,6 @@ const ListBtn = styled(Link)`
   }
 `
 
-const Button = styled(ButtonLink)`
-  color: ${props => props.theme.lightYellow};
-`
-
 const ListButton = (props) => {
   const {
     list,
@@ -39,7 +35,7 @@ const ListButton = (props) => {
       to={`/dashboard/list/${list.id}`}
     >
       {list.description}
-      <Button onClick={() => setOpen(!open) }>edit</Button>
+      <ButtonLink onClick={() => setOpen(!open) }>edit</ButtonLink>
       {open ? <EditModal setOpen={setOpen} list={list}/> : null}
     </ListBtn>
   )

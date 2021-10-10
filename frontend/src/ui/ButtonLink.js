@@ -5,7 +5,7 @@ export const ButtonLink = styled.button`
   text-decoration: underline;
   border: none;
   background: transparent;
-  color: ${props => props.theme.fontWhite};
+  color: ${props => props.theme.lightYellow};
 
   &:hover {
     cursor: pointer;

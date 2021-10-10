@@ -4,8 +4,7 @@ import NoteInput from './NoteInput'
 import * as fromTodoList from '../api/todoList'
 import { TodoListContext } from '../TodoListProvider'
 import { TodoListsContext } from '../TodoListsProvider'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEdit } from '@fortawesome/free-solid-svg-icons'
+import { ButtonLink } from '../ui/ButtonLink'
 
 const ItemCont = styled.div`
   display: none;
@@ -39,17 +38,6 @@ const ListVal = styled.li`
 const NoteLi = styled(ListVal)`
   display: flex;
   justify-content: space-between;
-`
-
-const EditBtn = styled(FontAwesomeIcon)`
-  appearance: none;
-  background: ${props => props.theme.darkBlue};
-  color: ${props => props.theme.fontEdit};
-  text-decoration: none;
-
-  &:hover {
-    cursor: pointer;
-  }
 `
 
 const DateInput = styled.input(
@@ -104,7 +92,7 @@ const ItemInfo = () => {
         {dueDate && !editDueDate
           ? <NoteLi>
               <div><ListAttr>due date:</ListAttr> {formatDate(dueDate) || 'none'}</div>
-              <EditBtn onClick={() => setEditDueDate(!editDueDate)}>edit</EditBtn>
+              <ButtonLink onClick={() => setEditDueDate(!editDueDate)}>edit</ButtonLink>
             </NoteLi>
           : <ListVal>
             <DueDateRow>
@@ -117,7 +105,7 @@ const ItemInfo = () => {
           <div>
             <ListAttr>Notes:</ListAttr>
           </div>
-          <EditBtn icon={faEdit} onClick={() => setEditing(!editing)}>edit</EditBtn>
+          <ButtonLink onClick={() => setEditing(!editing)}>edit</ButtonLink>
         </NoteLi>
         <li>
           <NoteInput editing={editing} listItem={todo} listId={listId} />

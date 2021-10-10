@@ -3,8 +3,7 @@ import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import { TodoListContext } from '../TodoListProvider'
 import { useParams } from 'react-router-dom'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTrashAlt } from '@fortawesome/free-solid-svg-icons'
+import { ButtonLink } from '../ui/ButtonLink'
 
 const ItemDisplay = styled.div`
   padding: .5rem;
@@ -48,10 +47,6 @@ const CompleteBtn = styled.button(
   `
 )
 
-const TrashIcon = styled(FontAwesomeIcon)`
-  margin-right: .5rem;
-`
-
 const ItemInput = styled.input`
   appearance: none;
   border: none;
@@ -82,6 +77,7 @@ const Item = (props) => {
   const updateItem = (e) => {
     if (e.key === 'Enter') {
       handleUpdate(item, { description: inputEl.current.value })
+      setEditable(!editable)
       inputEl.current.blur()
     }
   }
@@ -99,8 +95,6 @@ const Item = (props) => {
   return (
     <ListItem
       completed={item.completed_at}
-      onDoubleClick={() => setEditable(!editable)}
-      onBlur={() => setEditable(false)}
       onKeyDown={updateItem}
     >
       { !item.completed_at
@@ -116,7 +110,10 @@ const Item = (props) => {
         : <ItemDisplay onClick={() => getTodo(listId, item.id)}>{item.description}</ItemDisplay>
       }
 
-      <TrashIcon icon={faTrashAlt} onClick={() => handleDelete(item)} />
+      { !item.completed_at
+        ? <ButtonLink onClick={() => setEditable(true)}>edit</ButtonLink>
+        : null}
+      <ButtonLink onClick={() => handleDelete(item)}>delete</ButtonLink>
     </ListItem>
   )
 }
