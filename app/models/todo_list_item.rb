@@ -6,7 +6,9 @@ class TodoListItem < ApplicationRecord
 
   belongs_to :todo_list
 
-  def self.completed_last
-    order(completed_at: :desc, created_at: :desc)
-  end
+  scope :daily_list, -> {
+    where(completed_at: DateTime.current.beginning_of_day...DateTime.current)
+    .or(where(completed_at: nil))
+    .order(completed_at: :desc, created_at: :desc)
+  }
 end
