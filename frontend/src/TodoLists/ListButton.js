@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
+import { ButtonLink } from '../ui/ButtonLink'
+import EditModal from './EditModal'
 
 const ListBtn = styled(Link)`
   appearance: none;
@@ -19,11 +21,17 @@ const ListBtn = styled(Link)`
   }
 `
 
+const Button = styled(ButtonLink)`
+  color: ${props => props.theme.lightYellow};
+`
+
 const ListButton = (props) => {
   const {
     list,
     selectedList
   } = props
+
+  const [open, setOpen] = useState(false)
 
   return (
     <ListBtn
@@ -31,6 +39,8 @@ const ListButton = (props) => {
       to={`/dashboard/list/${list.id}`}
     >
       {list.description}
+      <Button onClick={() => setOpen(!open) }>edit</Button>
+      {open ? <EditModal setOpen={setOpen} list={list}/> : null}
     </ListBtn>
   )
 }

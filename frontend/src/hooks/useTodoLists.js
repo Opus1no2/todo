@@ -21,7 +21,21 @@ const useTodoLists = () => {
     }
   }
 
-  return { todoLists, createList }
+  const updateList = (list, description) => {
+    fromApi.updateList(list, description).then((resp) => {
+      const updatedList = resp.data
+      const lists = todoLists.map((list) => {
+        if (Number(list.id) === Number(updatedList.id)) {
+          return updatedList
+        } else {
+          return list
+        }
+      })
+      setTodoLists(lists)
+    })
+  }
+
+  return { todoLists, createList, updateList }
 }
 
 export default useTodoLists

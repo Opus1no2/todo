@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 
   scope module: :api do
     namespace :v1 do
-      resources :todo_lists, only: %i[index create] do
+      resources :todo_lists, only: %i[index create update] do
         resources :items, controller: 'todo_list_items'
       end
 

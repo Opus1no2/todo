@@ -12,3 +12,7 @@ export function createList (description) {
     }
   })
 }
+
+export function updateList (list, description) {
+  return axios.put(`/v1/todo_lists/${list.id}`, { todo_list: { description } })
+}

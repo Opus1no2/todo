@@ -5,13 +5,14 @@ import PropTypes from 'prop-types'
 export const TodoListsContext = createContext()
 
 const TodoListsProvider = ({ children }) => {
-  const { listId, todoLists, createList } = useTodoLists()
+  const { listId, todoLists, createList, updateList } = useTodoLists()
 
   return (
     <TodoListsContext.Provider value={{
       listId,
       todoLists,
-      createList
+      createList,
+      updateList
     }}>
       {children}
     </TodoListsContext.Provider>
