@@ -5,9 +5,11 @@ require 'rails_helper'
 RSpec.describe 'Api::V1::TodoLists', type: :request do
   let(:user) { build(:user) }
   let(:todo_list) { create(:todo_list, :with_items, user: user) }
-  let!(:item_in_future) { create(:todo_list_item, todo_list: todo_list, completed_at: 2.days.ago) }
+  let(:item_in_future) { create(:todo_list_item, todo_list: todo_list, completed_at: 2.days.ago) }
 
   describe 'GET /index' do
+    before { item_in_future }
+
     context 'when valid token given' do
       sign_in(:user)
 
